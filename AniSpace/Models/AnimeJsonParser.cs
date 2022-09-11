@@ -13,14 +13,14 @@ namespace AniSpace.Models
     internal static class AnimeJsonParser
     {
         private static List<Root>? DeserializeInString;
-        public static async Task Parse(string limit, string season, string rating, ObservableCollection<AnimeBoxItemControl> listBox)
+        public static async Task Parse(string limit, string season, string rating, ObservableCollection<AnimeBoxItemControl> AnimeListBoxItems)
         {
             Dictionary<string, string> content = new Dictionary<string, string>
             {
-                {"limit","2" },
+                {"limit",limit },
                 { "order","popularity" },
-                { "season","2019" },
-                {"rating", "r" }
+                { "season",season },
+                {"rating", rating }
             };
 
             HttpRequestMessage request = new HttpRequestMessage
@@ -38,8 +38,8 @@ namespace AniSpace.Models
                     (await message.Content.ReadAsStringAsync());
             }
 
-            foreach (Root item in DeserializeInString)
-                    AnimeListBoxControler.Create(item.name, item.score, $"https://shikimori.one/{item.image.preview}", listBox);
+            foreach (Root? item in DeserializeInString)
+                    AnimeListBoxControler.Create(item.name, item.score, $"https://shikimori.one/{item.image.preview}", AnimeListBoxItems);
          }
     }
 }

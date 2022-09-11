@@ -9,15 +9,8 @@ namespace AniSpace.Infructuctre.Commands.Base
     internal class RelayCommand : CommandBase
     {
         private readonly Func<Task> _AsyncExecute;
-        private readonly Action<object> _Execute;
         private readonly Func<object, bool> _CanExcute;
 
-        internal RelayCommand(Action<object> Execute, Func<object, bool> CanExcute)
-        {
-            _Execute = Execute;
-            _CanExcute = CanExcute;
-
-        }
         internal RelayCommand(Func<Task> AsyncExecute, Func<object, bool> CanExcute)
         {
             _AsyncExecute = AsyncExecute;
@@ -26,7 +19,7 @@ namespace AniSpace.Infructuctre.Commands.Base
         }
         public override bool CanExecute(object? parameter) => _CanExcute?.Invoke(parameter) ?? true;
 
-        public override void Execute(object? parameter) => _Execute(parameter);
+        public override void Execute(object? parameter) => _AsyncExecute();
 
         public override Task ExecuteAsync() => _AsyncExecute();
     }

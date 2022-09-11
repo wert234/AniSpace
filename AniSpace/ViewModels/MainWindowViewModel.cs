@@ -1,7 +1,9 @@
 ﻿using AniSpace.Infructuctre.Commands.Base;
+using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,11 @@ namespace AniSpace.ViewModels
             }
         }
         #endregion
+        #region MenuContentPropertys
+
+        public ObservableCollection<AnimeBoxItemControl> AnimeListBoxItems { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -42,18 +49,20 @@ namespace AniSpace.ViewModels
             if(SelectedItem.Content.ToString() == "новинки") return true;
             else return false;
         }
-
         private async Task OnSearchApplicationCommandExecuted()
         {
-            // add Realisation
+            await Models.AnimeJsonParser.Parse("2", "2019", "r", AnimeListBoxItems);
         }
 
         #endregion
 
         #endregion
 
-        MainWindowViewModel()
+        public MainWindowViewModel()
         {
+            #region Propertys
+            AnimeListBoxItems = new ObservableCollection<AnimeBoxItemControl>();
+            #endregion
             #region CommandsInition
 
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);

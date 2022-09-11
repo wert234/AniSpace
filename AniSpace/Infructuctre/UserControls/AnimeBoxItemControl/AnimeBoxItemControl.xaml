@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
     
         <Image
-                Source="{Binding ElementName=AnimeBoxItemControl,Path=AnimeImage}"
+                Source="{Binding ElementName=AnimeBoxItem,Path=AnimeImage}"
                Height="105"
                Width="105"
             />
@@ -23,13 +23,13 @@
             <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
-                    Text="{Binding ElementName=AnimeBoxItemControl, Path=AnimeName}"
+                    Text="{Binding ElementName=AnimeBoxItem, Path=AnimeName}"
                     
                 />
             <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
-                    Text="{Binding ElementName=AnimeBoxItemControl, Path=AnimeRaiting}"
+                    Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
                 />
         </StackPanel>
     </Grid>

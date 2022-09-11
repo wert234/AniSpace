@@ -32,7 +32,7 @@
                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Margin="6">
                                Аниме
                             </TextBlock>
-                            <ComboBox SelectedItem="{Binding item}" MinWidth="70" FontSize="17" Margin="6">
+                            <ComboBox SelectedItem="{Binding SelectedItem}" MinWidth="70" FontSize="17" Margin="6">
                                 <ComboBoxItem>новости</ComboBoxItem>
                                 <ComboBoxItem>новинки</ComboBoxItem>
                             </ComboBox>
@@ -95,7 +95,7 @@
                                         </ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
-                                <Button  Command="{Binding ChoiceApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">
+                                <Button  Command="{Binding SearchApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">
                                     Поиск
                                 </Button>
                             </StackPanel>

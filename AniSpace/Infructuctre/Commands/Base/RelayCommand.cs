@@ -12,10 +12,15 @@ namespace AniSpace.Infructuctre.Commands.Base
         private readonly Action<object> _Execute;
         private readonly Func<object, bool> _CanExcute;
 
-        internal RelayCommand(Func<Task> AsyncExecute, Action<object> Execute, Func<object, bool> CanExcute)
+        internal RelayCommand(Action<object> Execute, Func<object, bool> CanExcute)
+        {
+            _Execute = Execute;
+            _CanExcute = CanExcute;
+
+        }
+        internal RelayCommand(Func<Task> AsyncExecute, Func<object, bool> CanExcute)
         {
             _AsyncExecute = AsyncExecute;
-            _Execute = Execute;
             _CanExcute = CanExcute;
 
         }

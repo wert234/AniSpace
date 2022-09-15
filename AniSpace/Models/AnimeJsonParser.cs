@@ -8,13 +8,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace AniSpace.Models
 {
     internal static class AnimeJsonParser
     {
         private static List<Root>? DeserializeInString;
-        public static async Task Parse(string page, string limit, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems)
+        public static async Task Parse(string page, string limit, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
         {
             Dictionary<string, string> content = new Dictionary<string, string>
             {
@@ -41,7 +42,8 @@ namespace AniSpace.Models
             }
 
             foreach (Root? item in DeserializeInString)
-                    AnimeListBoxControler.Create(item.russian, item.score, $"https://shikimori.one/{item.image.preview}", AnimeListBoxItems);
+                    AnimeListBoxControler.CreateAnime(item.russian, item.score, $"https://shikimori.one/{item.image.preview}", AnimeListBoxItems);
+            AnimeListBoxControler.CreateMoreButten(AnimeListBoxItems, MoreApplicationCommand);
          }
     }
 }

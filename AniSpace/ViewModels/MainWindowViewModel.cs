@@ -1,5 +1,6 @@
 ﻿using AniSpace.Infructuctre.Commands.Base;
 using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
+using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,91 @@ namespace AniSpace.ViewModels
         #endregion
         #region MenuContentPropertys
 
-        public ObservableCollection<AnimeBoxItemControl> AnimeListBoxItems { get; set; }
+        public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
+
+        private int _AnimeHeight;
+        public int AnimeHeight
+        {
+            get => _AnimeHeight;
+            set
+            {
+                if(Equals(_AnimeHeight, value)) return;
+                _AnimeHeight = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _NiewsHeight;
+        public int NiewsHeight
+        {
+            get => _NiewsHeight;
+            set
+            {
+                if(_NiewsHeight == value) return;
+                _NiewsHeight = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+        #region MenuSortingPropertys
+
+        private ComboBoxItem _Years;
+        public ComboBoxItem Years
+        {
+            get => _Years;
+            set
+            {
+                if (Equals(_Years, value)) return;
+                _Years = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ComboBoxItem _Genre;
+        public ComboBoxItem Genre
+        {
+            get => _Genre;
+            set
+            {
+                if (Equals(_Genre, value)) return;
+                _Genre = value;
+                OnPropertyChanged();
+            }
+        }
+        private ComboBoxItem _Tip;
+        public ComboBoxItem Tip
+        {
+            get => _Tip;
+            set
+            {
+                if (Equals(_Tip, value)) return;
+                _Tip = value;
+                OnPropertyChanged();
+            }
+        }
+        private ComboBoxItem _Age;
+        public ComboBoxItem Age
+        {
+            get => _Age;
+            set
+            {
+                if (Equals(_Age, value)) return;
+                _Age = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ComboBoxItem _Version;
+        public ComboBoxItem Version
+        {
+            get => _Version;
+            set
+            {
+                if (Equals(_Version, value)) return;
+                _Version = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -46,12 +131,21 @@ namespace AniSpace.ViewModels
         private bool CanSearchApplicationCommandExecuted(object p)
         {
             if(SelectedItem is null) return false;
-            if(SelectedItem.Content.ToString() == "новинки") return true;
-            else return false;
+            if (SelectedItem.Content.ToString() == "новинки")
+            {
+                _NiewsHeight = 0;
+                _AnimeHeight = 280;
+                return true;
+            }
+            else { _AnimeHeight = 0; _NiewsHeight = 280; return false; }
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-            await Models.AnimeJsonParser.Parse("2", "2019", "r", AnimeListBoxItems);
+           TextBlock years = (TextBlock)Years.Content;
+           TextBlock age = (TextBlock)Age.Content;
+           await Models.AnimeJsonParser.Parse("10", years.Text, age.Text, AnimeListBoxItems);
+            AnimeMoreButtonControl control = new AnimeMoreButtonControl();
+            AnimeListBoxItems.Add(control);
         }
 
         #endregion
@@ -61,12 +155,12 @@ namespace AniSpace.ViewModels
         public MainWindowViewModel()
         {
             #region Propertys
-            AnimeListBoxItems = new ObservableCollection<AnimeBoxItemControl>();
+            AnimeListBoxItems = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition
 
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);
-            
+
             #endregion
         }
     }

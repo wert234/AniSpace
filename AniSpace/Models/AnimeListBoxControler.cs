@@ -5,13 +5,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace AniSpace.Models
 {
     internal static class AnimeListBoxControler
     {
-        internal static void Create(string Name, string Raiting, string image, ObservableCollection<AnimeBoxItemControl> AnimeListBoxItems)
+        internal static void Create(string Name, string Raiting, string image, ObservableCollection<UserControl> AnimeListBoxItems)
         {
             AnimeBoxItemControl item = new AnimeBoxItemControl();
             AnimeListBoxItems.Add(item);

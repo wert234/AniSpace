@@ -20,6 +20,14 @@ namespace AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl
     /// </summary>
     public partial class AnimeMoreButtonControl : UserControl
     {
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(AnimeMoreButtonControl), new PropertyMetadata());
+
         public AnimeMoreButtonControl()
         {
             InitializeComponent();

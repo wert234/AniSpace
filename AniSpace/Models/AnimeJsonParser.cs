@@ -14,10 +14,11 @@ namespace AniSpace.Models
     internal static class AnimeJsonParser
     {
         private static List<Root>? DeserializeInString;
-        public static async Task Parse(string limit, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems)
+        public static async Task Parse(string page, string limit, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems)
         {
             Dictionary<string, string> content = new Dictionary<string, string>
             {
+                {"page", page},
                 {"limit",limit },
                 { "order","popularity" },
                 { "season",season },

@@ -35,28 +35,28 @@ namespace AniSpace.ViewModels
 
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
 
-        private int _AnimeHeight;
-        public int AnimeHeight
-        {
-            get => _AnimeHeight;
-            set
-            {
-                if(Equals(_AnimeHeight, value)) return;
-                _AnimeHeight = value;
-                OnPropertyChanged();
-            }
-        }
-        private int _NiewsHeight;
-        public int NiewsHeight
-        {
-            get => _NiewsHeight;
-            set
-            {
-                if(_NiewsHeight == value) return;
-                _NiewsHeight = value;
-                OnPropertyChanged();
-            }
-        }
+        //private int _AnimeHeight;
+        //public int AnimeHeight
+        //{
+        //    get => _AnimeHeight;
+        //    set
+        //    {
+        //        if(Equals(_AnimeHeight, value)) return;
+        //        _AnimeHeight = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+        //private int _NiewsHeight;
+        //public int NiewsHeight
+        //{
+        //    get => _NiewsHeight;
+        //    set
+        //    {
+        //        if(_NiewsHeight == value) return;
+        //        _NiewsHeight = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         #endregion
         #region MenuSortingPropertys
@@ -131,23 +131,27 @@ namespace AniSpace.ViewModels
         private bool CanSearchApplicationCommandExecuted(object p)
         {
             if(SelectedItem is null) return false;
-            if (SelectedItem.Content.ToString() == "новинки")
-            {
-                _NiewsHeight = 0;
-                _AnimeHeight = 280;
-                return true;
-            }
-            else { _AnimeHeight = 0; _NiewsHeight = 280; return false; }
+            if(SelectedItem.Content.ToString() == "новинки") return true;
+            else return false; 
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
            TextBlock years = (TextBlock)Years.Content;
            TextBlock age = (TextBlock)Age.Content;
-           await Models.AnimeJsonParser.Parse("10", years.Text, age.Text, AnimeListBoxItems);
+           await Models.AnimeJsonParser.Parse("1","10", years.Text, age.Text, AnimeListBoxItems);
             AnimeMoreButtonControl control = new AnimeMoreButtonControl();
+            control.Command = MoreApplicationCommand;
             AnimeListBoxItems.Add(control);
         }
 
+        #endregion
+        #region MoreApplicationCommand
+        public ICommand MoreApplicationCommand { get; set; }
+        private bool CanMoreApplicationCommandExecuted(object p) => true;
+        private async Task OnMoreApplicationCommandExecuted()
+        {
+           await Task.Run(() => AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count-1]));
+        }
         #endregion
 
         #endregion

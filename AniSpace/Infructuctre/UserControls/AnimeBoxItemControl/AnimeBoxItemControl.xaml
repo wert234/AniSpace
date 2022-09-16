@@ -7,31 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Name="AnimeBoxItem">
     <ListBoxItem>
-    <Grid Width="457">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-    
-        <Image
+        <Grid Width="457">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image
                 Source="{Binding ElementName=AnimeBoxItem,Path=AnimeImage}"
                Height="105"
                Width="105"
             />
-    
-        <StackPanel Grid.Column="2">
-            <TextBlock
+
+            <StackPanel Grid.Column="2">
+                <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeName}"
                     
                 />
-            <TextBlock
+                <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
                 />
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+            <Menu FontSize="25" VerticalAlignment="Bottom" Margin="0,0,50,15" Grid.Column="2" HorizontalAlignment="Right" Height="35">
+                <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
+                    <MenuItem FontSize="15" Header="Добавить"></MenuItem>
+                    <MenuItem FontSize="15" Header="По версии">
+                        <MenuItem FontSize="15" Header="Shik"></MenuItem>
+                        <MenuItem FontSize="15" Header="AniSpace"></MenuItem>
+                        <MenuItem FontSize="15" Header="Anilibry"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Grid>
     </ListBoxItem>
 </UserControl>

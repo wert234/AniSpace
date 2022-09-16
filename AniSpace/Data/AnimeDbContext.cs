@@ -1,4 +1,5 @@
 ﻿using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
+using AniSpace.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,14 @@ namespace AniSpace.Data
 {
     internal class AnimeDbContext : DbContext
     {
-        public AnimeDbContext(DbContextOptions options)
-            :base(options){}
+        public AnimeDbContext()
+            :base(){}
 
-        public DbSet<AnimeBoxItemControl> AnimeBoxItemControls { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AnimeDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
+        public DbSet<AnimeDbItem> AnimeBoxItemControls { get; set; }
+
     }
 }

@@ -1,8 +1,10 @@
-﻿using AniSpace.Infructuctre.Commands.Base;
+﻿using AniSpace.Data;
+using AniSpace.Infructuctre.Commands.Base;
 using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models;
 using AniSpace.ViewModels.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,6 +38,8 @@ namespace AniSpace.ViewModels
 
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
+        public AnimeDbContext AnimeDb { get; set; }
+        public ObservableCollection<AnimeDbItem> AnimeDBItems { get; set; }
 
         #endregion
         #region MenuSortingPropertys
@@ -109,19 +113,19 @@ namespace AniSpace.ViewModels
         public ICommand SearchApplicationCommand { get; }
         private bool CanSearchApplicationCommandExecuted(object p)
         {
-            if(SelectedItem is null) return false;
-            if(SelectedItem.Content.ToString() == "новинки") return true;
-            else return false; 
+            if (SelectedItem is null) return false;
+            if (SelectedItem.Content.ToString() == "новинки") return true;
+            else return false;
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-           await AnimeJsonParser.Parse(
-               AnimeCunter.ToString(),
-               AnimeListBoxControler.Limit,
-               ((TextBlock)Years.Content).Text,
-               ((TextBlock)Age.Content).Text,
-               AnimeListBoxItems,
-               MoreApplicationCommand);
+            await AnimeJsonParser.Parse(
+                AnimeCunter.ToString(),
+                AnimeListBoxControler.Limit,
+                ((TextBlock)Years.Content).Text,
+                ((TextBlock)Age.Content).Text,
+                AnimeListBoxItems,
+                MoreApplicationCommand);
             AnimeCunter++;
         }
 
@@ -131,22 +135,33 @@ namespace AniSpace.ViewModels
         private bool CanMoreApplicationCommandExecuted(object p) => true;
         private async Task OnMoreApplicationCommandExecuted()
         {
-            AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count-1]);
+            AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count - 1]);
             await OnSearchApplicationCommandExecuted();
         }
         #endregion
-
         #endregion
-
         public MainWindowViewModel()
         {
             #region Propertys
             AnimeListBoxItems = new ObservableCollection<UserControl>();
+            AnimeDb = new AnimeDbContext();
             #endregion
             #region CommandsInition
 
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);
             MoreApplicationCommand = new RelayCommand(OnMoreApplicationCommandExecuted, CanMoreApplicationCommandExecuted);
+            #endregion
+            #region Db
+            AnimeDb = new AnimeDbContext();
+            AnimeDb.Database.EnsureCreated();
+            AnimeDb.AnimeBoxItemControls.Load();
+            AnimeDBItems = new ObservableCollection<AnimeDbItem>();
+            foreach (AnimeDbItem item in AnimeDb.AnimeBoxItemControls)
+            {
+                AnimeDBItems.Add(item);
+            }
+
+
             #endregion
         }
     }

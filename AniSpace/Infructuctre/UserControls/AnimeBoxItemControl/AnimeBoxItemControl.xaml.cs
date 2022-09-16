@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AniSpace.Data;
+using AniSpace.Infructuctre.Commands.Base;
+using AniSpace.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,9 +59,31 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("AnimeImage", typeof(ImageSource), typeof(AnimeBoxItemControl), new PropertyMetadata());
         #endregion
-        public AnimeBoxItemControl()
+
+        #region Commands
+        #region AddAplicationCommand
+        public ICommand AddAplicationCommand { get; set; }
+        private bool CanAddAplicationCommandExecuted(object p) => true;
+        private async Task OnAddAplicationCommandExecuted()
         {
+            AnimeDbContext animeDb = new AnimeDbContext();
+            AnimeDbItem animeDbItem = new AnimeDbItem();
+            animeDbItem.AnimeImage = AnimeImage.ToString();
+            animeDbItem.AnimeName = AnimeName;
+            animeDbItem.AnimeRating = AnimeRaiting;
+            await animeDb.AddAsync(animeDbItem);
+            await animeDb.SaveChangesAsync();
+        }
+
+        #endregion
+
+
+        #endregion
+        public AnimeBoxItemControl()
+        { 
+            AddAplicationCommand = new RelayCommand(OnAddAplicationCommandExecuted, CanAddAplicationCommandExecuted);
             InitializeComponent();
+
         }
     }
 }

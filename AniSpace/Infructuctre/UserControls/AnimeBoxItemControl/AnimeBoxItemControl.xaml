@@ -34,7 +34,7 @@
             </StackPanel>
             <Menu FontSize="25" VerticalAlignment="Bottom" Margin="0,0,50,15" Grid.Column="2" HorizontalAlignment="Right" Height="35">
                 <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
-                    <MenuItem FontSize="15" Header="Добавить"></MenuItem>
+                    <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= AddAplicationCommand}" FontSize="15" Header="Добавить"></MenuItem>
                     <MenuItem FontSize="15" Header="По версии">
                         <MenuItem FontSize="15" Header="Shik"></MenuItem>
                         <MenuItem FontSize="15" Header="AniSpace"></MenuItem>

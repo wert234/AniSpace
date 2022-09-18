@@ -20,21 +20,28 @@
             />
 
             <StackPanel Grid.Column="2">
-                <TextBlock
+                <DockPanel>
+                    <TextBlock Margin="0,6,0,4" FontSize="15" Text="Название: "/>
+                    <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeName}"
-                    
-                />
-                <TextBlock
+                     />
+                </DockPanel>
+
+                <DockPanel>
+                    <TextBlock Margin="0,6,0,4" FontSize="15" Text="Рейтинг: "/>
+                    <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
                 />
+                </DockPanel>
             </StackPanel>
             <Menu FontSize="25" VerticalAlignment="Bottom" Margin="0,0,50,15" Grid.Column="2" HorizontalAlignment="Right" Height="35">
                 <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
                     <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= AddAplicationCommand}" FontSize="15" Header="Добавить"></MenuItem>
+                    <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= RemoveAplicationCommand}" FontSize="15" Header="Удалить"></MenuItem>
                     <MenuItem FontSize="15" Header="По версии">
                         <MenuItem FontSize="15" Header="Shik"></MenuItem>
                         <MenuItem FontSize="15" Header="AniSpace"></MenuItem>

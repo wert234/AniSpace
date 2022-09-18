@@ -39,7 +39,8 @@ namespace AniSpace.ViewModels
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
         public AnimeDbContext AnimeDb { get; set; }
-        public ObservableCollection<AnimeDbItem> AnimeDBItems { get; set; }
+        public ObservableCollection<AnimeDbItem> Animes { get; set; }
+        public ObservableCollection<UserControl> SavedAnimeBoxItems { get; set; }
 
         #endregion
         #region MenuSortingPropertys
@@ -140,11 +141,14 @@ namespace AniSpace.ViewModels
         }
         #endregion
         #endregion
+
         public MainWindowViewModel()
         {
             #region Propertys
             AnimeListBoxItems = new ObservableCollection<UserControl>();
             AnimeDb = new AnimeDbContext();
+            Animes = new ObservableCollection<AnimeDbItem>();
+            SavedAnimeBoxItems = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition
 
@@ -152,16 +156,7 @@ namespace AniSpace.ViewModels
             MoreApplicationCommand = new RelayCommand(OnMoreApplicationCommandExecuted, CanMoreApplicationCommandExecuted);
             #endregion
             #region Db
-            AnimeDb = new AnimeDbContext();
-            AnimeDb.Database.EnsureCreated();
-            AnimeDb.AnimeBoxItemControls.Load();
-            AnimeDBItems = new ObservableCollection<AnimeDbItem>();
-            foreach (AnimeDbItem item in AnimeDb.AnimeBoxItemControls)
-            {
-                AnimeDBItems.Add(item);
-            }
-
-
+              AnimeListBoxControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
             #endregion
         }
     }

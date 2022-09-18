@@ -172,21 +172,7 @@
             <TabItem MaxWidth="Infinity" Header="История">
                 <TabItem.Content>
                     <!--Таблица-->
-                    <DataGrid ItemsSource="{Binding AnimeDBItems}" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Превью" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Width="100" Height="100" Source="{Binding AnimeImage }"></Image>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Название" Binding="{Binding AnimeName}"/>
-                            <DataGridTextColumn Header="Рейтинг" Binding="{Binding AnimeRating}"/>
-                            <DataGridTextColumn Header="Жанры"/>
-                            <DataGridTextColumn Header="Год выхода"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <ListBox ItemsSource="{Binding SavedAnimeBoxItems}"/>
                 </TabItem.Content>
             </TabItem>
             <TabItem MaxWidth="Infinity" Header="Настройки">

@@ -24,7 +24,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
     public partial class AnimeBoxItemControl : UserControl
     {
 
-        #region Name
+        #region AnimeName
         public string AnimeName
         {
             get { return (string)GetValue(AnimeNameProperty); }
@@ -66,22 +66,25 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanAddAplicationCommandExecuted(object p) => true;
         private async Task OnAddAplicationCommandExecuted()
         {
-            AnimeDbContext animeDb = new AnimeDbContext();
-            AnimeDbItem animeDbItem = new AnimeDbItem();
-            animeDbItem.AnimeImage = AnimeImage.ToString();
-            animeDbItem.AnimeName = AnimeName;
-            animeDbItem.AnimeRating = AnimeRaiting;
-            await animeDb.AddAsync(animeDbItem);
-            await animeDb.SaveChangesAsync();
+            await AnimeListBoxControler.SaveAsync(AnimeRaiting,AnimeName,AnimeImage.ToString());
         }
 
         #endregion
+        #region RemuveAplicationCommand
+        public ICommand RemoveAplicationCommand { get; set; }
+        private bool CanRemoveAplicationCommand(object p) => true;
+        private async Task OnRemoveAplicationCommand()
+        {
+           await AnimeListBoxControler.DelteByNameAsync(AnimeName);
+        }
 
+        #endregion
 
         #endregion
         public AnimeBoxItemControl()
         { 
             AddAplicationCommand = new RelayCommand(OnAddAplicationCommandExecuted, CanAddAplicationCommandExecuted);
+            RemoveAplicationCommand = new RelayCommand(OnRemoveAplicationCommand, CanRemoveAplicationCommand);
             InitializeComponent();
 
         }

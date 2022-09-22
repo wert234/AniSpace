@@ -35,7 +35,6 @@ namespace AniSpace.ViewModels
         }
         #endregion
         #region MenuContentPropertys
-
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
         public AnimeDbContext AnimeDb { get; set; }
@@ -120,9 +119,10 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-            await AnimeJsonParser.Parse(
+            await AnimeControler.GetAnimeAsync(
+                AnimeControler.AnimeStudio.Shikimori,
                 AnimeCunter.ToString(),
-                AnimeListBoxControler.Limit,
+                AnimeControler.Limit,
                 ((TextBlock)Years.Content).Text,
                 ((TextBlock)Age.Content).Text,
                 AnimeListBoxItems,
@@ -156,7 +156,7 @@ namespace AniSpace.ViewModels
             MoreApplicationCommand = new RelayCommand(OnMoreApplicationCommandExecuted, CanMoreApplicationCommandExecuted);
             #endregion
             #region Db
-              AnimeListBoxControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
+              AnimeDbControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
             #endregion
         }
     }

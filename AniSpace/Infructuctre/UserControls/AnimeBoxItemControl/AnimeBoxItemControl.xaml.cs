@@ -66,7 +66,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanAddAplicationCommandExecuted(object p) => true;
         private async Task OnAddAplicationCommandExecuted()
         {
-            await AnimeListBoxControler.SaveAsync(AnimeRaiting,AnimeName,AnimeImage.ToString());
+            await AnimeDbControler.SaveAsync(AnimeRaiting,AnimeName,AnimeImage.ToString());
         }
 
         #endregion
@@ -75,7 +75,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanRemoveAplicationCommand(object p) => true;
         private async Task OnRemoveAplicationCommand()
         {
-           await AnimeListBoxControler.DelteByNameAsync(AnimeName);
+           await AnimeDbControler.DelteByNameAsync(AnimeName);
         }
 
         #endregion

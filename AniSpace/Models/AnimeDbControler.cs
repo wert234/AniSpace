@@ -14,36 +14,21 @@ using System.Windows.Media;
 
 namespace AniSpace.Models
 {
-    internal static class AnimeListBoxControler
+    internal static class AnimeDbControler
     {
-        public static string? Limit { get; set; } = "15";
         private static ObservableCollection<AnimeDbItem>? _Animes;
         private static ObservableCollection<UserControl>? _SavedAnimeBoxItems;
         private static AnimeDbContext? _AnimeDb;
-        internal static void CreateAnime(string Name, string Raiting, string image, ObservableCollection<UserControl> AnimeListBoxItems)
-        {
-            AnimeBoxItemControl item = new AnimeBoxItemControl();
-            AnimeListBoxItems.Add(item);
-            item.AnimeName = $"{Name}";
-            item.AnimeRaiting = $"{Raiting}";
-            item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
-        }
-        internal static void CreateMoreButten(ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
-        {
-            AnimeMoreButtonControl control = new AnimeMoreButtonControl();
-            control.Command = MoreApplicationCommand;
-            AnimeListBoxItems.Add(control);
-        }
         internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeImage)
         {
-            CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
+           AnimeControler.CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
             await _AnimeDb.AddAsync(ConvertListBoxItemToDbItem(AnimeRaiting,AnimeName,AnimeImage));
             await _AnimeDb.SaveChangesAsync();
             LoadAnime(_AnimeDb);
         }
         internal static void Save(string AnimeRaiting, string AnimeName, string AnimeImage)
         {
-            CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
+            AnimeControler.CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
             _AnimeDb.Add(ConvertListBoxItemToDbItem(AnimeRaiting, AnimeName, AnimeImage));
             _AnimeDb.SaveChanges();
             LoadAnime(_AnimeDb);
@@ -69,7 +54,7 @@ namespace AniSpace.Models
             _AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeDbItem item in _AnimeDb.AnimeBoxItemControls)
             {
-                CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
                 
@@ -81,7 +66,7 @@ namespace AniSpace.Models
             AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeDbItem item in AnimeDb.AnimeBoxItemControls)
             {
-                CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
         }

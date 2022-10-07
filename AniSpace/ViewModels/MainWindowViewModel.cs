@@ -38,7 +38,7 @@ namespace AniSpace.ViewModels
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
         public AnimeDbContext AnimeDb { get; set; }
-        public ObservableCollection<AnimeDbItem> Animes { get; set; }
+        public ObservableCollection<Models.AnimeBase> Animes { get; set; }
         public ObservableCollection<UserControl> SavedAnimeBoxItems { get; set; }
 
         #endregion
@@ -147,7 +147,7 @@ namespace AniSpace.ViewModels
             #region Propertys
             AnimeListBoxItems = new ObservableCollection<UserControl>();
             AnimeDb = new AnimeDbContext();
-            Animes = new ObservableCollection<AnimeDbItem>();
+            Animes = new ObservableCollection<Models.AnimeBase>();
             SavedAnimeBoxItems = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition

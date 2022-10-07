@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
-namespace AniSpace.Models
+namespace AniSpace
 {
-    internal class AnimeDbItem
+    internal interface IAnime
     {
         public int Id { get; set; }
         public string AnimeName { get; set; }
         public string AnimeRating { get; set; }
+        public string AnimeAge{ get; set; }
         public string AnimeImage { get; set; }
+        public string AnimeTegs { get; set; }
     }
 }

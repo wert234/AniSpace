@@ -18,11 +18,17 @@ using System.Windows.Shapes;
 
 namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 {
-    /// <summary>
-    /// Логика взаимодействия для AnimeBoxItemControl.xaml
-    /// </summary>
     public partial class AnimeBoxItemControl : UserControl
     {
+        #region AnimeAge
+        public string AnimeAge
+        {
+            get { return (string)GetValue(AnimeAgeProperty); }
+            set { SetValue(AnimeAgeProperty, value); }
+        }
+        public static readonly DependencyProperty AnimeAgeProperty =
+            DependencyProperty.Register("AnimeAge", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
+        #endregion
 
         #region AnimeName
         public string AnimeName
@@ -30,10 +36,27 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             get { return (string)GetValue(AnimeNameProperty); }
             set { SetValue(AnimeNameProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AnimeNameProperty =
             DependencyProperty.Register("AnimeName", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
+        #endregion
+        #region AnimeOrigName
+        public string AnimeOrigName
+        {
+            get { return (string)GetValue(AnimeOrigNameProperty); }
+            set { SetValue(AnimeOrigNameProperty, value); }
+        }
+        public static readonly DependencyProperty AnimeOrigNameProperty =
+            DependencyProperty.Register("AnimeOrigName", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
+        #endregion
+
+        #region AnimeTegs
+        public string AnimeTegs
+        {
+            get { return (string)GetValue(AnimeTegsProperty); }
+            set { SetValue(AnimeTegsProperty, value); }
+        }
+        public static readonly DependencyProperty AnimeTegsProperty =
+            DependencyProperty.Register("AnimeTegs", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
         #endregion
 
         #region AnimeRaiting
@@ -62,29 +85,56 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 
         #region Commands
         #region AddAplicationCommand
-        public ICommand AddAplicationCommand { get; set; }
-        private bool CanAddAplicationCommandExecuted(object p) => true;
-        private async Task OnAddAplicationCommandExecuted()
+        public ICommand AddApplicationCommand { get; set; }
+        private bool CanAddApplicationCommandExecuted(object p) => true;
+        private async Task OnAddApplicationCommandExecuted()
         {
-            await AnimeDbControler.SaveAsync(AnimeRaiting,AnimeName,AnimeImage.ToString());
+            await AnimeDbControler.SaveAsync(AnimeRaiting, AnimeName, AnimeOrigName, AnimeImage.ToString(), AnimeAge);
         }
 
         #endregion
-        #region RemuveAplicationCommand
-        public ICommand RemoveAplicationCommand { get; set; }
-        private bool CanRemoveAplicationCommand(object p) => true;
-        private async Task OnRemoveAplicationCommand()
+        #region RemuveApplicationCommand
+        public ICommand RemoveApplicationCommand { get; set; }
+        private bool CanRemoveApplicationCommand(object p) => true;
+        private async Task OnRemoveApplicationCommand()
         {
-           await AnimeDbControler.DelteByNameAsync(AnimeName);
+            await AnimeDbControler.DelteByNameAsync(AnimeName);
+        }
+
+        #endregion
+
+        #region ChangeStudioApplicationCommands
+
+        public ICommand ChangeOnAniMangCommand { get; set; }
+        private bool CanChangeOnAniMangCommand(object p) => true;
+        private async Task OnChangeOnAniMangCommand()
+        {
+            AnimeControler.GetAnime("AniMang", this);
+        }
+
+        public ICommand ChangeOnAniDBCommand { get; set; }
+        private bool CanChangeOnAniDBCommand(object p) => true;
+        private async Task OnChangeOnAniDBCommand()
+        {
+            AnimeControler.GetAnime("AniDB", this);
         }
 
         #endregion
 
         #endregion
         public AnimeBoxItemControl()
-        { 
-            AddAplicationCommand = new RelayCommand(OnAddAplicationCommandExecuted, CanAddAplicationCommandExecuted);
-            RemoveAplicationCommand = new RelayCommand(OnRemoveAplicationCommand, CanRemoveAplicationCommand);
+        {
+            #region CommandInit
+
+            AddApplicationCommand = new RelayCommand(OnAddApplicationCommandExecuted, CanAddApplicationCommandExecuted);
+            RemoveApplicationCommand = new RelayCommand(OnRemoveApplicationCommand, CanRemoveApplicationCommand);
+
+            #region ChangeStudioApplicationCommands     
+            ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);
+            ChangeOnAniDBCommand = new RelayCommand(OnChangeOnAniDBCommand, CanChangeOnAniDBCommand);  
+            #endregion 
+
+            #endregion
             InitializeComponent();
 
         }

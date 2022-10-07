@@ -16,21 +16,14 @@ namespace AniSpace.Models
 {
     internal static class AnimeDbControler
     {
-        private static ObservableCollection<AnimeDbItem>? _Animes;
+        private static ObservableCollection<AnimeBase>? _Animes;
         private static ObservableCollection<UserControl>? _SavedAnimeBoxItems;
         private static AnimeDbContext? _AnimeDb;
-        internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeImage)
+        internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeOrigName, string AnimeImage, string AnimeAge)
         {
-           AnimeControler.CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
+           AnimeControler.CreateAnime(AnimeName,AnimeOrigName, AnimeRaiting, AnimeImage, AnimeAge, _SavedAnimeBoxItems);
             await _AnimeDb.AddAsync(ConvertListBoxItemToDbItem(AnimeRaiting,AnimeName,AnimeImage));
             await _AnimeDb.SaveChangesAsync();
-            LoadAnime(_AnimeDb);
-        }
-        internal static void Save(string AnimeRaiting, string AnimeName, string AnimeImage)
-        {
-            AnimeControler.CreateAnime(AnimeName, AnimeRaiting, AnimeImage, _SavedAnimeBoxItems);
-            _AnimeDb.Add(ConvertListBoxItemToDbItem(AnimeRaiting, AnimeName, AnimeImage));
-            _AnimeDb.SaveChanges();
             LoadAnime(_AnimeDb);
         }
         internal static async Task DelteByNameAsync(string AnimeName)
@@ -39,22 +32,16 @@ namespace AniSpace.Models
             await _AnimeDb.SaveChangesAsync();
             LoadAnime(_AnimeDb);
         }
-        internal static void DelteByName(string AnimeName)
-        {
-            _AnimeDb.AnimeBoxItemControls.Remove(_AnimeDb.AnimeBoxItemControls.Where(x => x.AnimeName == AnimeName).FirstOrDefault());
-            _AnimeDb.SaveChangesAsync();
-            LoadAnime(_AnimeDb);
-        }
-        internal static void LoadAnime(ObservableCollection<AnimeDbItem> Animes, AnimeDbContext AnimeDb, ObservableCollection<UserControl>? SavedAnimeBoxItems)
+        internal static void LoadAnime(ObservableCollection<AnimeBase> Animes, AnimeDbContext AnimeDb, ObservableCollection<UserControl>? SavedAnimeBoxItems)
         {
             _SavedAnimeBoxItems = SavedAnimeBoxItems;
             _Animes = Animes;
             _AnimeDb = AnimeDb; 
             _AnimeDb.Database.EnsureCreated();
             _AnimeDb.AnimeBoxItemControls.Load();
-            foreach (AnimeDbItem item in _AnimeDb.AnimeBoxItemControls)
+            foreach (AnimeBase item in _AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName,item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
                 
@@ -64,15 +51,15 @@ namespace AniSpace.Models
             _Animes.Clear();
             _SavedAnimeBoxItems.Clear();
             AnimeDb.AnimeBoxItemControls.Load();
-            foreach (AnimeDbItem item in AnimeDb.AnimeBoxItemControls)
+            foreach (AnimeBase item in AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName, item.AnimeRating, item.AnimeImage, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName, item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
         }
-        internal static AnimeDbItem ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage)
+        internal static AnimeBase ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage)
         {
-            AnimeDbItem animeDbItem = new AnimeDbItem();
+            AnimeBase animeDbItem = new AnimeBase();
             animeDbItem.AnimeImage = AnimeImage.ToString();
             animeDbItem.AnimeName = AnimeName;
             animeDbItem.AnimeRating = AnimeRaiting;

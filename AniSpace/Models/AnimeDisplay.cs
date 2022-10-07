@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,17 @@ namespace AniSpace.Models
         {
             DeserializeInString = JsonConvert.DeserializeObject<List<Root>>(await Response.Content.ReadAsStringAsync());
             foreach (Root? item in DeserializeInString)
-               AnimeControler.CreateAnime(item.russian, item.score, $"https://shikimori.one/{item.image.preview}", AnimeListBoxItems);
+               AnimeControler.CreateAnime(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, AnimeListBoxItems);
+        }
+        internal static async Task AniMangDisplay(HttpResponseMessage? Response, string AnimeName,string AnimeAge, string AnimeRaiting, string AnimeImage)
+        {
+            HtmlDocument html = new HtmlDocument();
+            html.LoadHtml(await Response.Content.ReadAsStringAsync());
+            var str = html.DocumentNode.SelectNodes("//section").Where(x => x.InnerText.Contains(AnimeAge)).ToList();
+            AnimeImage = str[0].SelectSingleNode($"//img[@alt='{AnimeName}']").Attributes["src"].Value;
+            html.LoadHtml(str[0].InnerHtml);
+            AnimeName = (html.DocumentNode.SelectSingleNode("//span").InnerText);
+
         }
         internal static async Task AniDBDisplay()
         {

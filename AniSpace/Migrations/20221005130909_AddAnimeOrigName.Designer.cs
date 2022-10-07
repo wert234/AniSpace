@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AniSpace.Migrations
 {
     [DbContext(typeof(AnimeDbContext))]
-    [Migration("20220916151705_Init")]
-    partial class Init
+    [Migration("20221005130909_AddAnimeOrigName")]
+    partial class AddAnimeOrigName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,13 +23,17 @@ namespace AniSpace.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AniSpace.Models.AnimeDbItem", b =>
+            modelBuilder.Entity("AniSpace.Models.AnimeBase", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AnimeAge")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AnimeImage")
                         .IsRequired()
@@ -39,7 +43,15 @@ namespace AniSpace.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AnimeOrigName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AnimeRating")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AnimeTegs")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

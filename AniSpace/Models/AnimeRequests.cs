@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AniSpace.Models
@@ -26,18 +27,6 @@ namespace AniSpace.Models
                 Content = new FormUrlEncodedContent(ShikimoriContent),
                 RequestUri = new Uri("https://shikimori.one/api/animes")
             };
-            return Request;
-        }
-        internal static HttpRequestMessage GetAniDBRequest()
-        {
-            return Request;
-        }
-        internal static HttpRequestMessage GetKinopoiskRequest()
-        {
-            return Request;
-        }
-        internal static HttpRequestMessage GetJutRequest()
-        {
             return Request;
         }
     }

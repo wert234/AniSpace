@@ -16,7 +16,9 @@ namespace AniSpace.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AnimeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AnimeRating = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnimeImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AnimeAge = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnimeImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnimeTegs = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

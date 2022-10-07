@@ -1,6 +1,7 @@
 ﻿using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models.Factory;
+using AniSpace.Models.FactoryDomins;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,7 @@ namespace AniSpace.Models
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
-        public static string? Limit { get; set; } = "15";
-        private static List<Root>? DeserializeInString;
-        private static HttpRequestMessage? Request;
-        private static HttpResponseMessage? Response;
-        internal enum AnimeStudio
-        {
-            Shikimori = 1,
-            AniDB = 2,
-            Kinopoisk = 3,
-            Jut = 4,
-            AniMang = 5
-        }
+        public static string Limit { get; set; } = "15";
         internal static void CreateAnime(string Name, string NameOrig, string Raiting, string image, string seson, ObservableCollection<UserControl> AnimeListBoxItems)
         {
             AnimeBoxItemControl item = new AnimeBoxItemControl();
@@ -58,50 +48,10 @@ namespace AniSpace.Models
             animeFactory = GetFactory(StudioName);
             animeFactory.GetAnime(anime);
         }
-        public static async Task SelectDisplay(AnimeStudio AnimeStudio, ObservableCollection<UserControl> AnimeListBoxItems, string AnimeName = null, string AnimeAge = null, string AnimeRaiting = null, string AnimeImage = null)
+        public static async Task SearchAnimeAsync(string page, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
         {
-            switch (AnimeStudio)
-            {
-                case AnimeStudio.Shikimori:
-                    await  AnimeDisplay.ShikimoriDisplay(Response, DeserializeInString, AnimeListBoxItems);
-                    break;
-                case AnimeStudio.AniDB:
-                    await AnimeDisplay.AniDBDisplay();
-                    break;
-                case AnimeStudio.Kinopoisk:
-                    await AnimeDisplay.KinopoiskDisplay();
-                    break;
-                case AnimeStudio.Jut:
-                    await AnimeDisplay.JutDisplay();
-                    break;
-                case AnimeStudio.AniMang:
-                    await AnimeDisplay.AniMangDisplay(Response, AnimeName, AnimeAge, AnimeRaiting, AnimeImage);
-                    break;
-                default:
-                    break;
-            }
-        }
-        public static async Task SelectStudio(AnimeStudio AnimeStudio, string page = null, string limit = null, string season = null, string rating = null, string AnimeName = null)
-        {
-            switch (AnimeStudio)
-            {
-                case AnimeStudio.Shikimori:
-                    Request = AnimeRequests.GetShikimoriRequest(page, limit, season, rating);
-                    break;
-                default:
-                    break;
-            }
-        }
-        public static async Task GetAnimeAsync(AnimeStudio AnimeStudio, string page, string limit, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
-        {
-            _AnimeListBoxItems = AnimeListBoxItems;
-            using (HttpClient client = new HttpClient())
-            {
-                await SelectStudio(AnimeStudio, page, limit, season, rating);
-                Response = await client.SendAsync(Request);
-                if (Response is null) return;
-                await SelectDisplay(AnimeStudio, AnimeListBoxItems);
-            }
+            SearchAnime searchAnime = new SearchAnime(AnimeListBoxItems, page, Limit, season, rating);
+            await searchAnime.Display();
             CreateMoreButten(AnimeListBoxItems, MoreApplicationCommand);
         }
     }

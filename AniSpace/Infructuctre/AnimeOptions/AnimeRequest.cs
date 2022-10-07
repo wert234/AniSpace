@@ -9,10 +9,12 @@ namespace AniSpace.Models
 {
     internal class AnimeRequest : HttpRequestMessage
     {
-        internal AnimeRequest(Uri AnimeUri)
+        internal AnimeRequest(Uri AnimeUri, Dictionary<string, string> content = null)
         {
             Method = HttpMethod.Get;
             RequestUri = AnimeUri;
+            if (content != null)
+            Content = new FormUrlEncodedContent(content);
         }
     }
 }

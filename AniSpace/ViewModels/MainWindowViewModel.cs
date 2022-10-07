@@ -119,10 +119,8 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-            await AnimeControler.GetAnimeAsync(
-                AnimeControler.AnimeStudio.Shikimori,
+            await AnimeControler.SearchAnimeAsync(
                 AnimeCunter.ToString(),
-                AnimeControler.Limit,
                 ((TextBlock)Years.Content).Text,
                 ((TextBlock)Age.Content).Text,
                 AnimeListBoxItems,

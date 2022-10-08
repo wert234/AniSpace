@@ -26,7 +26,7 @@ namespace AniSpace.Models
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
-        public static string Limit { get; set; } = "15";
+        public static string Limit { get; set; } = "10";
         internal static void CreateAnime(string Name, string NameOrig, string Raiting, string image, string seson, ObservableCollection<UserControl> AnimeListBoxItems)
         {
             AnimeBoxItemControl item = new AnimeBoxItemControl();
@@ -43,10 +43,10 @@ namespace AniSpace.Models
             control.Command = MoreApplicationCommand;
             AnimeListBoxItems.Add(control);
         }
-        internal static void GetAnime(string StudioName, AnimeBoxItemControl anime)
+        internal static async Task GetAnime(string StudioName, AnimeBoxItemControl anime)
         {
             animeFactory = GetFactory(StudioName);
-            animeFactory.GetAnime(anime);
+            await animeFactory.GetAnime(anime);
         }
         public static async Task SearchAnimeAsync(string page, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
         {

@@ -119,13 +119,9 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-            await AnimeControler.SearchAnimeAsync(
-                AnimeCunter.ToString(),
-                ((TextBlock)Years.Content).Text,
-                ((TextBlock)Age.Content).Text,
-                AnimeListBoxItems,
-                MoreApplicationCommand);
-            AnimeCunter++;
+            AnimeListBoxItems.Clear();
+            AnimeCunter = 1;
+            await OnMoreApplicationCommandExecuted();
         }
 
         #endregion
@@ -134,8 +130,13 @@ namespace AniSpace.ViewModels
         private bool CanMoreApplicationCommandExecuted(object p) => true;
         private async Task OnMoreApplicationCommandExecuted()
         {
+            if(AnimeListBoxItems.Count != 0)
             AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count - 1]);
-            await OnSearchApplicationCommandExecuted();
+
+            await AnimeControler.SearchAnimeAsync( AnimeCunter.ToString(),
+                  ((TextBlock)Years.Content).Text,((TextBlock)Age.Content).Text,
+                   AnimeListBoxItems,MoreApplicationCommand);
+           AnimeCunter++;
         }
         #endregion
         #endregion

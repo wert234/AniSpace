@@ -9,6 +9,6 @@ namespace AniSpace.Models.Factory
 {
     internal abstract class AnimeFactory
     {
-        internal abstract void GetAnime(AnimeBoxItemControl anime);
+        internal abstract Task GetAnime(AnimeBoxItemControl anime);
     }
 }

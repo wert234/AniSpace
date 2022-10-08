@@ -10,10 +10,10 @@ namespace AniSpace.Models.Factory
 {
     internal class GetAniDBFactory : AnimeFactory
     {
-        internal override void GetAnime(AnimeBoxItemControl anime)
+        internal override async Task GetAnime(AnimeBoxItemControl anime)
         {
             GetAniDB getAniDB = new GetAniDB(anime);
-             getAniDB.Display();
+            await getAniDB.Display();
         }
     }
 }

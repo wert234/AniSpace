@@ -90,7 +90,7 @@ namespace AniSpace.Models.FactoryDomins
                 .Where(x => x.InnerText.Contains(_Anime.AnimeAge.Remove(4)))?.ToList()[0].InnerHtml);
             GetHtml();
         }
-        internal void Display()
+        internal async Task Display()
         {
             SelectHtml();
             _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(_Content[1]);

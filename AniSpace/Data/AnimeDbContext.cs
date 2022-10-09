@@ -18,7 +18,7 @@ namespace AniSpace.Data
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AniSpace;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
-        public DbSet<Models.AnimeBase> AnimeBoxItemControls { get; set; }
+        public DbSet<AnimeBase> AnimeBoxItemControls { get; set; }
 
     }
 }

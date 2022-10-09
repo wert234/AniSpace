@@ -14,7 +14,7 @@ namespace AniSpace.Infructuctre.LinqExtensions
                 if (Input[i] == sign)
                     return Input.Remove(i); 
             }
-            Input = Regex.Replace(Input, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~|||]", " ");
+            Input = Regex.Replace(Input, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~|||∬]", " ");
             return Regex.Replace(Input, " ", "+");
         }
     }

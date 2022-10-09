@@ -43,7 +43,7 @@ namespace AniSpace.Models.FactoryDomins
             var response = await GetRespons();
             _DeserializeInString = JsonConvert.DeserializeObject<List<Root>>(await response.Content.ReadAsStringAsync());
             foreach (Root? item in _DeserializeInString)
-                AnimeControler.CreateAnime(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, _AnimeListBoxItems);
+                AnimeControler.CreateAnime(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, "Жанр", _AnimeListBoxItems);
         }
     }
 }

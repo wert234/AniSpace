@@ -18,7 +18,8 @@ namespace AniSpace.Migrations
                     AnimeRating = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AnimeAge = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AnimeImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnimeTegs = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AnimeTegs = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnimeOrigName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

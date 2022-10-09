@@ -27,7 +27,7 @@ namespace AniSpace.Models
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
         public static string Limit { get; set; } = "10";
-        internal static void CreateAnime(string Name, string NameOrig, string Raiting, string image, string seson, ObservableCollection<UserControl> AnimeListBoxItems)
+        internal static void CreateAnime(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> AnimeListBoxItems)
         {
             AnimeBoxItemControl item = new AnimeBoxItemControl();
             AnimeListBoxItems.Add(item);
@@ -35,6 +35,7 @@ namespace AniSpace.Models
             item.AnimeOrigName = NameOrig;
             item.AnimeRaiting = $"{Raiting}";
             item.AnimeAge = seson;
+            item.AnimeTegs = tegs;
             item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
         }
         internal static void CreateMoreButten(ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)

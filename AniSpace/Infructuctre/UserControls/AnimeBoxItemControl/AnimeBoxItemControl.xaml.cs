@@ -77,8 +77,6 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             get { return (ImageSource)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("AnimeImage", typeof(ImageSource), typeof(AnimeBoxItemControl), new PropertyMetadata());
         #endregion
@@ -89,7 +87,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanAddApplicationCommandExecuted(object p) => true;
         private async Task OnAddApplicationCommandExecuted()
         {
-            await AnimeDbControler.SaveAsync(AnimeRaiting, AnimeName, AnimeOrigName, AnimeImage.ToString(), AnimeAge);
+            await AnimeDbControler.SaveAsync(AnimeRaiting, AnimeName, AnimeOrigName, AnimeImage.ToString(), AnimeAge, AnimeTegs);
         }
 
         #endregion

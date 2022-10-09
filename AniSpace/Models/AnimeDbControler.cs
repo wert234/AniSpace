@@ -19,10 +19,10 @@ namespace AniSpace.Models
         private static ObservableCollection<AnimeBase>? _Animes;
         private static ObservableCollection<UserControl>? _SavedAnimeBoxItems;
         private static AnimeDbContext? _AnimeDb;
-        internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeOrigName, string AnimeImage, string AnimeAge)
+        internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeOrigName, string AnimeImage, string AnimeAge, string Tegs)
         {
-           AnimeControler.CreateAnime(AnimeName,AnimeOrigName, AnimeRaiting, AnimeImage, AnimeAge, _SavedAnimeBoxItems);
-            await _AnimeDb.AddAsync(ConvertListBoxItemToDbItem(AnimeRaiting,AnimeName,AnimeImage));
+           AnimeControler.CreateAnime(AnimeName,AnimeOrigName, AnimeRaiting, AnimeImage, AnimeAge, Tegs, _SavedAnimeBoxItems);
+            await _AnimeDb.AddAsync(ConvertListBoxItemToDbItem(AnimeRaiting,AnimeName,AnimeImage, AnimeOrigName, AnimeAge, Tegs));
             await _AnimeDb.SaveChangesAsync();
             LoadAnime(_AnimeDb);
         }
@@ -41,7 +41,7 @@ namespace AniSpace.Models
             _AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeBase item in _AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName,item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName,item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
                 
@@ -53,16 +53,19 @@ namespace AniSpace.Models
             AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeBase item in AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName, item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, _SavedAnimeBoxItems);
+                AnimeControler.CreateAnime(item.AnimeName, item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
         }
-        internal static AnimeBase ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage)
+        internal static AnimeBase ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage, string AnimeOrigName, string Age, string Tegs)
         {
             AnimeBase animeDbItem = new AnimeBase();
             animeDbItem.AnimeImage = AnimeImage.ToString();
             animeDbItem.AnimeName = AnimeName;
             animeDbItem.AnimeRating = AnimeRaiting;
+            animeDbItem.AnimeOrigName = AnimeOrigName;
+            animeDbItem.AnimeTegs = Tegs;
+            animeDbItem.AnimeAge = Age;
             return animeDbItem;
         }
     }

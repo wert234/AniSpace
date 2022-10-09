@@ -13,6 +13,7 @@ namespace AniSpace.Models.Factory
         internal override async Task GetAnime(AnimeBoxItemControl anime)
         {
             GetAniDB getAniDB = new GetAniDB(anime);
+            
             await getAniDB.Display();
         }
     }

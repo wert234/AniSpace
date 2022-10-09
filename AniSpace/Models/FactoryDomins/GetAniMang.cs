@@ -3,15 +3,13 @@ using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using AniSpace.Infructuctre.LinqExtensions;
+using System.IO;
 
 namespace AniSpace.Models.FactoryDomins
 {
-    // добавить отнасительный путь!!!!!!!!!!
     internal class GetAniMang : AnimeBase
     {
         private AnimeBoxItemControl _Anime;
@@ -73,7 +71,7 @@ namespace AniSpace.Models.FactoryDomins
         {
             _Anime.AnimeTegs = "Такого аниме нет на этом сайте";
             _Anime.AnimeRaiting = "Ошибка 404";
-            _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Images\missing_x160_x160.png");
+            _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png");
         }
 
     }

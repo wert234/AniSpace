@@ -146,7 +146,7 @@ namespace AniSpace.ViewModels
             #region Propertys
             AnimeListBoxItems = new ObservableCollection<UserControl>();
             AnimeDb = new AnimeDbContext();
-            Animes = new ObservableCollection<Models.AnimeBase>();
+            Animes = new ObservableCollection<AnimeBase>();
             SavedAnimeBoxItems = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition

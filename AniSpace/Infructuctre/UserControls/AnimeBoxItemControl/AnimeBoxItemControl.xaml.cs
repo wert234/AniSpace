@@ -117,6 +117,13 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
            await AnimeControler.GetAnime("AniDB", this);
         }
 
+        public ICommand ChangeOnShikimoriCommand { get; set; }
+        private bool CanChangeOnShikimoriCommand(object p) => true;
+        private async Task OnChangeOnShikimoriCommand()
+        {
+            await AnimeControler.GetAnime("Shikimori", this);
+        }
+
         #endregion
 
         #endregion
@@ -126,6 +133,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 
             AddApplicationCommand = new RelayCommand(OnAddApplicationCommandExecuted, CanAddApplicationCommandExecuted);
             RemoveApplicationCommand = new RelayCommand(OnRemoveApplicationCommand, CanRemoveApplicationCommand);
+            ChangeOnShikimoriCommand = new RelayCommand(OnChangeOnShikimoriCommand, CanChangeOnShikimoriCommand);
 
             #region ChangeStudioApplicationCommands     
             ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);

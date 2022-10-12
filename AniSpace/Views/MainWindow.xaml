@@ -11,7 +11,6 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid Margin="50">
-
         <!--Меню-->
         <TabControl>
             <TabItem Header="Миню" MaxWidth="Infinity">
@@ -28,7 +27,7 @@
                         </Grid.RowDefinitions>
 
                         <!--Загаловок-->
-                        <StackPanel Orientation="Horizontal">
+                        <DockPanel>
                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Margin="6">
                                Аниме
                             </TextBlock>
@@ -36,8 +35,9 @@
                                 <ComboBoxItem>новости</ComboBoxItem>
                                 <ComboBoxItem>новинки</ComboBoxItem>
                             </ComboBox>
-                            
-                        </StackPanel>
+                            <TextBlock VerticalAlignment="Center" FontSize="17">Поиск</TextBlock>
+                            <TextBox Text="{Binding SearchAnime}" VerticalAlignment="Center" FontSize="17" Margin="10,10,15,12"/>
+                        </DockPanel>
 
 
                         <!--Сартировка-->
@@ -147,9 +147,15 @@
                                     <TextBlock>
                                          По версии
                                     </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Version}" Margin="50,0,0,0">
+                                    <ComboBox SelectedItem="{Binding Version}" Margin="60,0,0,0">
                                         <ComboBoxItem>
-                                            <TextBlock>g</TextBlock>
+                                            <TextBlock>AniMang</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>AniDB</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Shikimori</TextBlock>
                                         </ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
@@ -164,6 +170,22 @@
                         <!--контент-->
                         <Grid Grid.Row="2">
                             <ListBox ItemsSource="{Binding AnimeListBoxItems }"/>
+                            <Image Source="{Binding LoadingImage}" Height="50" Width="50">
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="rotate" CenterX="25" CenterY="25"/>
+                                </Image.RenderTransform>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="-360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </Grid>
 
                     </Grid>

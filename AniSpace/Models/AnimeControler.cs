@@ -22,7 +22,8 @@ namespace AniSpace.Models
         animeTipe switch
         {
             "AniMang" => new GetAniMangFactory(),
-            "AniDB" => new GetAniDBFactory()
+            "AniDB" => new GetAniDBFactory(),
+            "Shikimori" => new GetShikimoriFactory()
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }

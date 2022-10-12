@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AniSpace.ViewModels
 {
@@ -33,6 +34,18 @@ namespace AniSpace.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private string? _SearchAnime;
+        public string? SearchAnime
+        {
+            get => _SearchAnime;
+            set
+            {
+                if (Equals(_SearchAnime, value)) return;
+                _SearchAnime = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         #region MenuContentPropertys
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
@@ -40,6 +53,18 @@ namespace AniSpace.ViewModels
         public AnimeDbContext AnimeDb { get; set; }
         public ObservableCollection<Models.AnimeBase> Animes { get; set; }
         public ObservableCollection<UserControl> SavedAnimeBoxItems { get; set; }
+
+        private ImageSource? _LoadingImage;
+        public ImageSource? LoadingImage
+        {
+            get => _LoadingImage;
+            set
+            {
+                if (Equals(_LoadingImage, value)) return;
+                _LoadingImage = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
         #region MenuSortingPropertys
@@ -119,9 +144,20 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
+            LoadingImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\Background (1).png");
             AnimeListBoxItems.Clear();
             AnimeCunter = 1;
+            if(_SearchAnime != null)
+            {
+                AnimeControler.CreateAnime(_SearchAnime, "", "", @"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png", ((TextBlock)_Years.Content).Text, "", AnimeListBoxItems);
+                AnimeListBoxItems[0].Opacity = 0;
+                await AnimeControler.GetAnime(((TextBlock)Version.Content).Text, (AnimeBoxItemControl)AnimeListBoxItems[0]);
+                LoadingImage = null;
+                AnimeListBoxItems[0].Opacity = 1;
+                return;
+            }
             await OnMoreApplicationCommandExecuted();
+            LoadingImage = null;
         }
 
         #endregion

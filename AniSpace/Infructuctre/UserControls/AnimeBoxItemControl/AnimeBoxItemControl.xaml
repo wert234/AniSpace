@@ -54,9 +54,7 @@
                     <MenuItem FontSize="15" Header="По версии">
                         <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniMangCommand}" FontSize="15" Header="AniMang"></MenuItem>
                         <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniDBCommand}" FontSize="15" Header="AniDB"></MenuItem>
-                        <MenuItem FontSize="15" Header="Shik"></MenuItem>
-                        <MenuItem FontSize="15" Header="AniSpace"></MenuItem>
-                        <MenuItem FontSize="15" Header="Anilibry"></MenuItem>
+                        <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnShikimoriCommand}" FontSize="15" Header="Shikimori"></MenuItem>
                     </MenuItem>
                 </MenuItem>
             </Menu>

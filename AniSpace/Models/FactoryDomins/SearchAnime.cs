@@ -16,8 +16,7 @@ namespace AniSpace.Models.FactoryDomins
         private readonly Dictionary<string, string>? _ShikimoriContent;
         private AnimeRequest _Request;
         private List<Root> _DeserializeInString;
-        private ObservableCollection<UserControl> _AnimeListBoxItems;
-        internal SearchAnime(ObservableCollection<UserControl> AnimeListBoxItems, string page, string limit, string season, string rating)
+        internal SearchAnime(string page, string limit, string season, string rating)
         {
             _ShikimoriContent = new Dictionary<string, string>
             {
@@ -29,7 +28,6 @@ namespace AniSpace.Models.FactoryDomins
             };
             _Request = new AnimeRequest(new Uri("https://shikimori.one/api/animes"), _ShikimoriContent);
             _DeserializeInString = new List<Root>();
-            _AnimeListBoxItems = AnimeListBoxItems;
         }
         private async Task<HttpResponseMessage> GetRespons()
         {
@@ -43,7 +41,7 @@ namespace AniSpace.Models.FactoryDomins
             var response = await GetRespons();
             _DeserializeInString = JsonConvert.DeserializeObject<List<Root>>(await response.Content.ReadAsStringAsync());
             foreach (Root? item in _DeserializeInString)
-                AnimeControler.CreateAnime(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, "Жанр", _AnimeListBoxItems);
+                AnimeControler.Create(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, "Жанр");
         }
     }
 }

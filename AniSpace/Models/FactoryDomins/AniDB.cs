@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace AniSpace.Models.FactoryDomins
 {
-    internal class GetAniDB : AnimeBase
+    internal class AniDB : AnimeBase
     {
         private AnimeBoxItemControl _Anime;
         private List<string> _Tegs;
@@ -17,7 +17,7 @@ namespace AniSpace.Models.FactoryDomins
         private AnimeRequest _Request;
         private HtmlDocument _Document;
         private string _Age;
-        internal GetAniDB(AnimeBoxItemControl anime)
+        internal AniDB(AnimeBoxItemControl anime)
         {
             _Anime = anime;
             _Tegs = new List<string>();
@@ -67,7 +67,7 @@ namespace AniSpace.Models.FactoryDomins
             if (_Document.DocumentNode.SelectSingleNode($"//div[@class='g_bubblewrap nowrap g_section']").InnerText.Contains("No results.") && _Request.RequestUri.ToString().Contains(_Anime.AnimeName.ConvertToSearchName(':')))
             {
                 _Request = new AnimeRequest(new Uri($"https://anidb.net/anime/?adb.search={_Anime.AnimeOrigName.ConvertToSearchName(':')}&h=1&noalias=1&orderby.name=0.1&view=grid"));
-              await SelectHtml();
+                await SelectHtml();
                 return;
             }
             if (_Document.DocumentNode?.SelectNodes($"//div[@class='g_bubble box']")?.Where(x => x.InnerText.Contains(_Age))?.ToList().Count != 0)
@@ -85,6 +85,21 @@ namespace AniSpace.Models.FactoryDomins
                 return;
             }
             DisplayDefault();
+        }
+        internal async Task Search()
+        {
+            _Document.LoadHtml(await GetRespons());
+            var tooltips = _Document.DocumentNode.SelectNodes("//article");
+            foreach (HtmlNode node in tooltips)
+            {
+                _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge}?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
+                if (_Anime.AnimeAge == "") _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
+                _Document.LoadHtml(await GetRespons());
+                _Document.LoadHtml(node.InnerHtml);
+                await GetHtml();
+                AnimeControler.Create(_Anime.AnimeName, _Anime.AnimeOrigName, _Content[2], _Content[0], "", _Content[1]);
+                _Content.Clear();
+            }
         }
         internal async Task Display()
         {

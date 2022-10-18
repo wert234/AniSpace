@@ -1,5 +1,6 @@
 ﻿using AniSpace.Data;
 using AniSpace.Infructuctre.Commands.Base;
+using AniSpace.Infructuctre.LinqExtensions;
 using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models;
@@ -35,8 +36,8 @@ namespace AniSpace.ViewModels
             }
         }
 
-        private string? _SearchAnime;
-        public string? SearchAnime
+        private string _SearchAnime;
+        public string SearchAnime
         {
             get => _SearchAnime;
             set
@@ -147,13 +148,11 @@ namespace AniSpace.ViewModels
             LoadingImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\Background (1).png");
             AnimeListBoxItems.Clear();
             AnimeCunter = 1;
+            if (_SearchAnime == "") _SearchAnime = null;
             if(_SearchAnime != null)
             {
-                AnimeControler.CreateAnime(_SearchAnime, "", "", @"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png", ((TextBlock)_Years.Content).Text, "", AnimeListBoxItems);
-                AnimeListBoxItems[0].Opacity = 0;
-                await AnimeControler.GetAnime(((TextBlock)Version.Content).Text, (AnimeBoxItemControl)AnimeListBoxItems[0]);
+                await AnimeControler.SearchAsync(_SearchAnime, _Years.ConvertToString(""), _Version.ConvertToString("shikimori"));
                 LoadingImage = null;
-                AnimeListBoxItems[0].Opacity = 1;
                 return;
             }
             await OnMoreApplicationCommandExecuted();
@@ -169,9 +168,8 @@ namespace AniSpace.ViewModels
             if(AnimeListBoxItems.Count != 0)
             AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count - 1]);
 
-            await AnimeControler.SearchAnimeAsync( AnimeCunter.ToString(),
-                  ((TextBlock)Years.Content).Text,((TextBlock)Age.Content).Text,
-                   AnimeListBoxItems,MoreApplicationCommand);
+            await AnimeControler.SearchMoreAsync(_Version.ConvertToString("shikimori"),AnimeCunter.ToString(),
+                  Years.ConvertToString("2022"), Age.ConvertToString("pg_13"),MoreApplicationCommand);
            AnimeCunter++;
         }
         #endregion
@@ -181,12 +179,12 @@ namespace AniSpace.ViewModels
         {
             #region Propertys
             AnimeListBoxItems = new ObservableCollection<UserControl>();
+            AnimeControler._AnimeListBoxItems = AnimeListBoxItems;
             AnimeDb = new AnimeDbContext();
             Animes = new ObservableCollection<AnimeBase>();
             SavedAnimeBoxItems = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition
-
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);
             MoreApplicationCommand = new RelayCommand(OnMoreApplicationCommandExecuted, CanMoreApplicationCommandExecuted);
             #endregion

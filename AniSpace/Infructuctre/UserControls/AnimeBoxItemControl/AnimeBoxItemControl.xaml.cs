@@ -107,21 +107,21 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanChangeOnAniMangCommand(object p) => true;
         private async Task OnChangeOnAniMangCommand()
         {
-           await AnimeControler.GetAnime("AniMang", this);
+           await AnimeControler.Get("AniMang", this);
         }
 
         public ICommand ChangeOnAniDBCommand { get; set; }
         private bool CanChangeOnAniDBCommand(object p) => true;
         private async Task OnChangeOnAniDBCommand()
         {
-           await AnimeControler.GetAnime("AniDB", this);
+           await AnimeControler.Get("AniDB", this);
         }
 
         public ICommand ChangeOnShikimoriCommand { get; set; }
         private bool CanChangeOnShikimoriCommand(object p) => true;
         private async Task OnChangeOnShikimoriCommand()
         {
-            await AnimeControler.GetAnime("Shikimori", this);
+            await AnimeControler.Get("Shikimori", this);
         }
 
         #endregion

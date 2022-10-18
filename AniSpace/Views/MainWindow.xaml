@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AniSpace"
-        xmlns:vm="clr-namespace:AniSpace.ViewModels"
+        xmlns:vm="clr-namespace:AniSpace.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="AniSpace" Height="500" MinHeight="500" MinWidth="800" Width="800" Name="Window">
     <Window.DataContext>
@@ -13,10 +13,9 @@
     <Grid Margin="50">
         <!--Меню-->
         <TabControl>
-            <TabItem Header="Миню" MaxWidth="Infinity">
+            <TabItem Header="Меню" MaxWidth="Infinity">
                 <TabItem.Content>
                     <Grid>
-                        
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -31,12 +30,12 @@
                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Margin="6">
                                Аниме
                             </TextBlock>
-                            <ComboBox SelectedItem="{Binding SelectedItem}" MinWidth="70" FontSize="17" Margin="6">
+                            <ComboBox SelectedIndex="1" SelectedItem="{Binding SelectedItem}" MinWidth="70" FontSize="17" Margin="6">
                                 <ComboBoxItem>новости</ComboBoxItem>
                                 <ComboBoxItem>новинки</ComboBoxItem>
                             </ComboBox>
                             <TextBlock VerticalAlignment="Center" FontSize="17">Поиск</TextBlock>
-                            <TextBox Text="{Binding SearchAnime}" VerticalAlignment="Center" FontSize="17" Margin="10,10,15,12"/>
+                            <TextBox Text="{Binding SearchAnime}" VerticalAlignment="Center" FontSize="17" Margin="10,10,15,12" Cursor="Arrow"/>
                         </DockPanel>
 
 
@@ -51,6 +50,9 @@
                                        Год
                                     </TextBlock>
                                     <ComboBox SelectedItem="{Binding Years}" Margin="25,0,0,0">
+                                        <ComboBoxItem>
+                                            <TextBlock></TextBlock>
+                                        </ComboBoxItem>
                                         <ComboBoxItem>
                                             <TextBlock>2022</TextBlock>
                                         </ComboBoxItem>
@@ -101,17 +103,55 @@
                                     </TextBlock>
                                     <ComboBox SelectedItem="{Binding Genre}" Margin="30,0,0,0">
                                         <ComboBoxItem>
-                                            <TextBlock>w</TextBlock>
+                                            <TextBlock>Драма</TextBlock>
                                         </ComboBoxItem>
-                                    </ComboBox>
-                                </Grid>
-                                <Grid Margin="0,0,0,15">
-                                    <TextBlock>
-                                        Тип
-                                    </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Tip}" Margin="25,0,0,0">
                                         <ComboBoxItem>
-                                            <TextBlock>q</TextBlock>
+                                            <TextBlock>Романтика</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Этти</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Экшен</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Детектив</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Комедия</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Меха</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Мистика</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Музыка</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Приключения</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>повседневность</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Школа</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Спрорт</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Фентази</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Фантастика</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Ужасы</TextBlock>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock>Боевые искусства</TextBlock>
                                         </ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
@@ -121,7 +161,7 @@
                                     </TextBlock>
                                     <ComboBox SelectedItem="{Binding Age}" Margin="50,0,0,0">
                                         <ComboBoxItem>
-                                            <TextBlock>none</TextBlock>
+                                            <TextBlock></TextBlock>
                                         </ComboBoxItem>
                                         <ComboBoxItem>
                                             <TextBlock>g</TextBlock>
@@ -147,12 +187,9 @@
                                     <TextBlock>
                                          По версии
                                     </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Version}" Margin="60,0,0,0">
+                                    <ComboBox SelectedIndex="2" SelectedItem="{Binding Version}" Margin="60,0,0,0">
                                         <ComboBoxItem>
                                             <TextBlock>AniMang</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>AniDB</TextBlock>
                                         </ComboBoxItem>
                                         <ComboBoxItem>
                                             <TextBlock>Shikimori</TextBlock>

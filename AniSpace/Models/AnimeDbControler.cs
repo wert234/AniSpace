@@ -21,7 +21,7 @@ namespace AniSpace.Models
         private static AnimeDbContext? _AnimeDb;
         internal static async Task SaveAsync(string AnimeRaiting, string AnimeName, string AnimeOrigName, string AnimeImage, string AnimeAge, string Tegs)
         {
-           AnimeControler.CreateAnime(AnimeName,AnimeOrigName, AnimeRaiting, AnimeImage, AnimeAge, Tegs, _SavedAnimeBoxItems);
+           AnimeControler.Create(AnimeName,AnimeOrigName, AnimeRaiting, AnimeImage, AnimeAge, Tegs, _SavedAnimeBoxItems);
             await _AnimeDb.AddAsync(ConvertListBoxItemToDbItem(AnimeRaiting,AnimeName,AnimeImage, AnimeOrigName, AnimeAge, Tegs));
             await _AnimeDb.SaveChangesAsync();
             LoadAnime(_AnimeDb);
@@ -41,7 +41,7 @@ namespace AniSpace.Models
             _AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeBase item in _AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName,item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
+                AnimeControler.Create(item.AnimeName,item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
                 
@@ -53,7 +53,7 @@ namespace AniSpace.Models
             AnimeDb.AnimeBoxItemControls.Load();
             foreach (AnimeBase item in AnimeDb.AnimeBoxItemControls)
             {
-                AnimeControler.CreateAnime(item.AnimeName, item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
+                AnimeControler.Create(item.AnimeName, item.AnimeOrigName, item.AnimeRating, item.AnimeImage, item.AnimeAge, item.AnimeTegs, _SavedAnimeBoxItems);
                 _Animes.Add(item);
             }
         }

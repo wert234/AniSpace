@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace AniSpace.Infructuctre.LinqExtensions
 {
@@ -16,6 +17,20 @@ namespace AniSpace.Infructuctre.LinqExtensions
             }
             Input = Regex.Replace(Input, "[!\"#$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~|||∬]", " ");
             return Regex.Replace(Input, " ", "+");
+        }
+
+        public static string ConvertToString(this ComboBoxItem Input, string Default)
+        {
+            if (Input is null)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = new TextBlock
+                {
+                    Text = Default
+                };
+                Input = item;
+            }
+            return ((TextBlock)Input.Content).Text;
         }
     }
 }

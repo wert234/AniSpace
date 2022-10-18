@@ -21,17 +21,21 @@ namespace AniSpace.Models
         private static AnimeFactory GetFactory(string animeTipe) =>
         animeTipe switch
         {
-            "AniMang" => new GetAniMangFactory(),
-            "AniDB" => new GetAniDBFactory(),
-            "Shikimori" => new GetShikimoriFactory()
+            "AniMang" => new AniMangFactory(),
+            "AniDB" => new AniDBFactory(),
+            "Shikimori" => new ShikimoriFactory()
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
         public static string Limit { get; set; } = "10";
-        internal static void CreateAnime(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> AnimeListBoxItems)
+        internal static void Create(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> SavedBoxItems = null)
         {
             AnimeBoxItemControl item = new AnimeBoxItemControl();
-            AnimeListBoxItems.Add(item);
+
+            if(SavedBoxItems is null)
+                _AnimeListBoxItems.Add(item);
+            else SavedBoxItems.Add(item);
+         
             item.AnimeName = $"{Name}";
             item.AnimeOrigName = NameOrig;
             item.AnimeRaiting = $"{Raiting}";
@@ -39,22 +43,29 @@ namespace AniSpace.Models
             item.AnimeTegs = tegs;
             item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
         }
-        internal static void CreateMoreButten(ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
+        internal static void CreateMore(ICommand MoreApplicationCommand)
         {
             AnimeMoreButtonControl control = new AnimeMoreButtonControl();
             control.Command = MoreApplicationCommand;
-            AnimeListBoxItems.Add(control);
+            _AnimeListBoxItems.Add(control);
         }
-        internal static async Task GetAnime(string StudioName, AnimeBoxItemControl anime)
+        internal static async Task Get(string StudioName, AnimeBoxItemControl anime)
         {
             animeFactory = GetFactory(StudioName);
             await animeFactory.GetAnime(anime);
         }
-        public static async Task SearchAnimeAsync(string page, string season, string rating, ObservableCollection<UserControl> AnimeListBoxItems, ICommand MoreApplicationCommand)
+        public static async Task SearchMoreAsync(string Studio,string page, string season, string rating, ICommand MoreApplicationCommand)
         {
-            SearchAnime searchAnime = new SearchAnime(AnimeListBoxItems, page, Limit, season, rating);
-            await searchAnime.Display();
-            CreateMoreButten(AnimeListBoxItems, MoreApplicationCommand);
+            animeFactory = GetFactory(Studio);
+            await animeFactory.GetListAnime(page, Limit, season, rating);
+            CreateMore(MoreApplicationCommand);
+        }
+        public static async Task SearchAsync(string AnimeName, string season, string Studio)
+        {
+            Create(AnimeName, "", "", @"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png", season, "");
+            _AnimeListBoxItems[0].Opacity = 0;
+            animeFactory = GetFactory(Studio);
+            await animeFactory.SearchAnime((AnimeBoxItemControl)_AnimeListBoxItems[0]);
         }
     }
 }

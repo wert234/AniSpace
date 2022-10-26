@@ -17,9 +17,9 @@ namespace AniSpace.Models.Factory
             await shikimori.HowToGet();
         }
 
-        internal override async Task GetListAnime(string page, string limit, string season, string rating = null)
+        internal override async Task GetListAnime(string page, string limit, string season, string ganers, string rating = null)
         {
-            Shikimori shikimori = new Shikimori(page, limit, season, rating);
+            Shikimori shikimori = new Shikimori(page, limit, season, ganers, rating);
             await shikimori.GetList();
         }
 

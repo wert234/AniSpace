@@ -16,9 +16,9 @@ namespace AniSpace.Models.Factory
             await aniMang.HowToGet();
         }
 
-        internal override async Task GetListAnime(string page, string limit, string season, string rating = null)
+        internal override async Task GetListAnime(string page, string limit, string season, string ganers = null, string rating = null)
         {
-            AniMang aniMang = new AniMang(page, limit, season, rating);
+            AniMang aniMang = new AniMang(page, limit, season, ganers, rating);
             await aniMang.GetList();
         }
 

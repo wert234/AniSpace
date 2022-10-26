@@ -2,6 +2,7 @@
 using AniSpace.Infructuctre.Commands.Base;
 using AniSpace.Infructuctre.LinqExtensions;
 using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
+using AniSpace.Infructuctre.UserControls.AnimeGaner;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models;
 using AniSpace.ViewModels.Base;
@@ -69,6 +70,8 @@ namespace AniSpace.ViewModels
 
         #endregion
         #region MenuSortingPropertys
+
+        public ObservableCollection<AnimeGaner> Ganers { get; set; }
 
         private ComboBoxItem _Years;
         public ComboBoxItem Years
@@ -145,13 +148,21 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
+            List<string> str = new List<string>();
+            foreach (AnimeGaner item in Ganers)
+            {
+                if (item.GanerSelected is false) continue;
+                str.Add(item.GanerToString(""));
+            }
+            var ganers = string.Join(", ", str);
+
             LoadingImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\Background (1).png");
             AnimeListBoxItems.Clear();
             AnimeCunter = 1;
             if (_SearchAnime == "") _SearchAnime = null;
             if(_SearchAnime != null)
             {
-                await AnimeControler.SearchAsync(_SearchAnime, _Years.ConvertToString(""), _Version.ConvertToString("shikimori"));
+                await AnimeControler.SearchAsync(_SearchAnime, _Years.ConvertToString(""), _Version.ConvertToString("shikimori"), ganers);
                 LoadingImage = null;
                 return;
             }
@@ -165,11 +176,19 @@ namespace AniSpace.ViewModels
         private bool CanMoreApplicationCommandExecuted(object p) => true;
         private async Task OnMoreApplicationCommandExecuted()
         {
-            if(AnimeListBoxItems.Count != 0)
+            List<string> str = new List<string>();
+            foreach (AnimeGaner item in Ganers)
+            {
+                if (item.GanerSelected is false) continue;
+                str.Add(item.GanerToString(""));
+            }
+            var ganers = string.Join(", ", str);
+
+            if (AnimeListBoxItems.Count != 0)
             AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count - 1]);
 
             await AnimeControler.SearchMoreAsync(_Version.ConvertToString("shikimori"),AnimeCunter.ToString(),
-                  Years.ConvertToString("2022"), Age.ConvertToString("pg_13"),MoreApplicationCommand);
+                  Years.ConvertToString("2022"), ganers, Age.ConvertToString("pg_13"),MoreApplicationCommand);
            AnimeCunter++;
         }
         #endregion
@@ -190,6 +209,26 @@ namespace AniSpace.ViewModels
             #endregion
             #region Db
               AnimeDbControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
+            #endregion
+            #region Ganers
+            Ganers = new ObservableCollection<AnimeGaner>();
+            Ganers.Add(new AnimeGaner("Драма"));
+            Ganers.Add(new AnimeGaner("Романтика"));
+            Ganers.Add(new AnimeGaner("Этти"));
+            Ganers.Add(new AnimeGaner("Экшен"));
+            Ganers.Add(new AnimeGaner("Детектив"));
+            Ganers.Add(new AnimeGaner("Комедия"));
+            Ganers.Add(new AnimeGaner("Меха"));
+            Ganers.Add(new AnimeGaner("Мистика"));
+            Ganers.Add(new AnimeGaner("Музыка"));
+            Ganers.Add(new AnimeGaner("Приключения"));
+            Ganers.Add(new AnimeGaner("Повседневность"));
+            Ganers.Add(new AnimeGaner("Школа"));
+            Ganers.Add(new AnimeGaner("Спрорт"));
+            Ganers.Add(new AnimeGaner("Фэнтези"));
+            Ganers.Add(new AnimeGaner("Фантастика"));
+            Ganers.Add(new AnimeGaner("Боевые искусства"));
+            Ganers.Add(new AnimeGaner("Ужасы"));
             #endregion
         }
     }

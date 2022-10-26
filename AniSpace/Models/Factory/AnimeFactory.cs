@@ -11,6 +11,6 @@ namespace AniSpace.Models.Factory
     {
         internal abstract Task GetAnime(AnimeBoxItemControl anime);
         internal abstract Task SearchAnime(AnimeBoxItemControl anime);
-        internal abstract Task GetListAnime(string page, string limit, string season, string rating = null);
+        internal abstract Task GetListAnime(string page, string limit, string season, string ganers = null, string rating = null);
     }
 }

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,8 +19,8 @@ namespace AniSpace.Models.FactoryDomins
         private AnimeRequest _Request;
         private HtmlDocument _Document;
         private List<string> _Tegs;
-        private Dictionary<string, string>? _ShikimoriContent;
-        private List<Root> _DeserializeInString;
+        private string _Uri;
+        private string _Limit;
         internal Shikimori(AnimeBoxItemControl anime)
         {
             _Anime = anime;
@@ -31,18 +32,19 @@ namespace AniSpace.Models.FactoryDomins
             _Document = new HtmlDocument();
             _Tegs = new List<string>();
         }
-        internal Shikimori(string page, string limit, string season, string rating)
+        internal Shikimori(string page, string limit, string season, string ganers, string rating)
         {
-            _ShikimoriContent = new Dictionary<string, string>
-            {
-                {"page", page},
-                {"limit",limit },
-                { "order","popularity" },
-                { "season",season },
-                {"rating", rating }
-            };
-            _Request = new AnimeRequest(new Uri("https://shikimori.one/api/animes"), _ShikimoriContent);
-            _DeserializeInString = new List<Root>();
+            _Limit = limit;
+            _Anime = new AnimeBoxItemControl();
+            _Document = new HtmlDocument();
+            _Content = new List<string>();
+            _Tegs = new List<string>();
+            _Uri = "https://shikimori.one/animes/";
+            if (season != "") _Uri = _Uri + $"season/{season}";
+            if (ganers != "") _Uri = _Uri + "/genre/" + ganers.GanerToShikiGaner("Драма");
+            if (rating != "") _Uri = _Uri + $"/rating/{rating}";
+            _Uri = _Uri + $"/page/{page}";
+            _Request = new AnimeRequest(new Uri(_Uri));
         }
         private async Task<string> GetRespons()
         {
@@ -94,7 +96,7 @@ namespace AniSpace.Models.FactoryDomins
            _Anime.AnimeImage = (ImageSource) new ImageSourceConverter().ConvertFrom(_Document.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value);
             _Anime.AnimeTegs = string.Join(", ", _Tegs);
             _Anime.AnimeRaiting = _Document.DocumentNode.SelectSingleNode("//meta[@itemprop='ratingValue']").Attributes["content"].Value;
-            _Anime.Name = _Document.DocumentNode.SelectSingleNode("//meta[@itemprop='alternativeHeadline']").Attributes["content"].Value;
+            _Anime.AnimeName = _Document.DocumentNode.SelectSingleNode("//h1").InnerText;
             if (_Anime.AnimeOrigName == "") _Anime.AnimeOrigName = _Document.DocumentNode.SelectSingleNode("//meta[@itemprop='name']").Attributes["content"].Value;
         }
         private async Task GetAsync()
@@ -121,7 +123,7 @@ namespace AniSpace.Models.FactoryDomins
         {
             await HowToSearch();
             var tooltips = _Document.DocumentNode.SelectNodes("//article");
-            if(tooltips != null)
+            if (tooltips != null)
             {
                 foreach (HtmlNode node in tooltips)
                 {
@@ -132,15 +134,32 @@ namespace AniSpace.Models.FactoryDomins
                     await GetAsync();
                     AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
                     _Content.Clear();
+                    _Tegs.Clear();
+                    await Task.Delay(301);
                 }
                 AnimeControler._AnimeListBoxItems.Remove(AnimeControler._AnimeListBoxItems[0]);
             }
         }
         internal async Task GetList()
         {
-            _DeserializeInString = JsonConvert.DeserializeObject<List<Root>>(await GetRespons());
-            foreach (Root? item in _DeserializeInString)
-                AnimeControler.Create(item.russian, item.name, item.score, $"https://shikimori.one/{item.image.preview}", item.released_on, "Жанр");
+            var counter = Convert.ToInt32(_Limit);
+            _Document.LoadHtml(await GetRespons());
+            var tooltips = _Document.DocumentNode.SelectNodes("//article");
+            if (tooltips.Count < Convert.ToInt32(_Limit)) counter = tooltips.Count;
+            if (tooltips != null)
+            {
+                for (int i = 0; i < counter; i++)
+                {
+                    _Request = new AnimeRequest(new Uri(_Uri));
+                    _Document.LoadHtml(await GetRespons());
+                    _Document.LoadHtml(tooltips[i].InnerHtml);
+                    await GetAsync();
+                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
+                    _Content.Clear();
+                    _Tegs.Clear();
+                    await Task.Delay(301);
+                }
+            }
         }
         private void GetDefault()
         {

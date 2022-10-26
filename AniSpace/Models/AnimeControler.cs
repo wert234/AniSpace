@@ -54,15 +54,15 @@ namespace AniSpace.Models
             animeFactory = GetFactory(StudioName);
             await animeFactory.GetAnime(anime);
         }
-        public static async Task SearchMoreAsync(string Studio,string page, string season, string rating, ICommand MoreApplicationCommand)
+        public static async Task SearchMoreAsync(string Studio,string page, string season, string ganers, string rating, ICommand MoreApplicationCommand)
         {
             animeFactory = GetFactory(Studio);
-            await animeFactory.GetListAnime(page, Limit, season, rating);
+            await animeFactory.GetListAnime(page, Limit, season, ganers, rating);
             CreateMore(MoreApplicationCommand);
         }
-        public static async Task SearchAsync(string AnimeName, string season, string Studio)
+        public static async Task SearchAsync(string AnimeName, string season, string Studio, string Ganers)
         {
-            Create(AnimeName, "", "", @"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png", season, "");
+            Create(AnimeName, "", "", @"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png", season, Ganers);
             _AnimeListBoxItems[0].Opacity = 0;
             animeFactory = GetFactory(Studio);
             await animeFactory.SearchAnime((AnimeBoxItemControl)_AnimeListBoxItems[0]);

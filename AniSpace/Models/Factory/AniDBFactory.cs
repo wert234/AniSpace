@@ -17,7 +17,7 @@ namespace AniSpace.Models.Factory
             await aniDB.Display();
         }
 
-        internal override Task GetListAnime(string page, string limit, string season, string rating = null)
+        internal override Task GetListAnime(string page, string limit, string season, string ganers, string rating = null)
         {
             throw new NotImplementedException();
         }

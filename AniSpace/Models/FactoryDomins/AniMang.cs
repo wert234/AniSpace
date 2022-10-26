@@ -19,6 +19,7 @@ namespace AniSpace.Models.FactoryDomins
         private List<HtmlNode>? _AnimeList;
         private string _Age;
         private string _Page;
+        private string _Uri;
         internal AniMang(AnimeBoxItemControl anime)
         {
             _Anime = anime;
@@ -27,7 +28,7 @@ namespace AniSpace.Models.FactoryDomins
             _Document = new HtmlDocument();
             _AnimeList = new List<HtmlNode>();
         }
-        internal AniMang(string page, string limit, string season, string rating)
+        internal AniMang(string page, string limit, string season, string ganers, string rating)
         {
             _Age = season;
             _Page = page;
@@ -35,9 +36,15 @@ namespace AniSpace.Models.FactoryDomins
             _Content = new List<string>();
             _Document = new HtmlDocument();
             _AnimeList = new List<HtmlNode>();
-            if (season is null || season == "")
-                _Request = new AnimeRequest(new Uri($"https://animang.one/navi/page/{page}?razdel&sort_rai=ratings_average&sort_stat=status#038;sort_rai=ratings_average&sort_stat=status"));
-            else _Request = new AnimeRequest(new Uri($"https://animang.one/navi/page/{page}?razdel&tax_god%5B0%5D={season}&sort_rai=ratings_average&sort_stat=status#038;&sort_rai=ratings_average&sort_stat=status"));
+            _Uri = $"https://animang.one/navi/page/{page}?razdel";
+            if (season != "") _Uri = _Uri + $"&tax_god%5B0%5D={season}";
+            if (ganers != "")
+            { 
+                foreach (string ganer in ganers.Split(", "))
+                    _Uri = _Uri + $"&tag_zhanr%5B0%5D={ganer}";
+            }
+            _Uri = _Uri + "&sort_rai=ratings_average&sort_stat=status";
+            _Request = new AnimeRequest(new Uri(_Uri));
         }
         private async Task<string> GetRespons()
         {
@@ -96,9 +103,7 @@ namespace AniSpace.Models.FactoryDomins
             {
                 foreach (HtmlNode node in tooltips)
                 {
-                    if (_Age is null || _Age == "")
-                        _Request = new AnimeRequest(new Uri($"https://animang.one/navi/page/{_Page}?razdel&sort_rai=ratings_average&sort_stat=status#038;sort_rai=ratings_average&sort_stat=status"));
-                    else _Request = new AnimeRequest(new Uri($"https://animang.one/navi/page/{_Page}?razdel&tax_god%5B0%5D={_Age}&sort_rai=ratings_average&sort_stat=status#038;&sort_rai=ratings_average&sort_stat=status"));
+                    _Request = new AnimeRequest(new Uri(_Uri));
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(node.InnerHtml);
                     await HowToSearch();
@@ -106,7 +111,6 @@ namespace AniSpace.Models.FactoryDomins
                     _AnimeList.Clear();
                     _Content.Clear();
                 }
-             //   AnimeControler._AnimeListBoxItems.Remove(AnimeControler._AnimeListBoxItems[0]);
                 return;
             }
             Default();

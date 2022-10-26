@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AniSpace"
+        xmlns:g="clr-namespace:AniSpace.Infructuctre.UserControls.AnimeGaner"
         xmlns:vm="clr-namespace:AniSpace.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     
         mc:Ignorable="d"
         Title="AniSpace" Height="500" MinHeight="500" MinWidth="800" Width="800" Name="Window">
     <Window.DataContext>
@@ -45,116 +47,74 @@
                                Сортировка
                             </TextBlock>
                             <StackPanel Margin="0,50,0,0">
-                                <Grid Margin="0,0,0,15">
-                                    <TextBlock>
-                                       Год
-                                    </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Years}" Margin="25,0,0,0">
-                                        <ComboBoxItem>
-                                            <TextBlock></TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2022</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2021</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2020</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2019</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2018</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2017</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2016</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2015</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2014</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2013</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2012</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2011</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2010</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>2009</TextBlock>
-                                        </ComboBoxItem>
-                                    </ComboBox>
+                                <Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                            <ColumnDefinition Width="4*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid VerticalAlignment="Top" Margin="0,10,0,0">
+                                            <TextBlock VerticalAlignment="Center" Text="Годы"/>
+                                            <ComboBox SelectedItem="{Binding Years}" Margin="35,0,0,0">
+                                                <ComboBoxItem>
+                                                    <TextBlock></TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2022</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2021</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2020</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2019</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2018</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2017</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2016</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2015</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2014</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2013</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2012</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2011</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2010</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>2009</TextBlock>
+                                                </ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                                            <TextBlock HorizontalAlignment="Left" FontSize="13" Margin="10,0,0,-45" VerticalAlignment="Center" Text="Жанры"/>
+                                            <Expander Background="Transparent">
+                                                <Grid>
+                                                    <ListBox Height="200" ItemsSource="{Binding Ganers}" materialDesign:ListBoxItemAssist.ShowSelection="False"/>
+                                                </Grid>
+                                            </Expander>
+
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
-                                <Grid Margin="0,0,0,15">
-                                    <TextBlock>
-                                         Жанр
-                                    </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Genre}" Margin="30,0,0,0">
-                                        <ComboBoxItem>
-                                            <TextBlock>Драма</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Романтика</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Этти</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Экшен</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Детектив</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Комедия</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Меха</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Мистика</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Музыка</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Приключения</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>повседневность</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Школа</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Спрорт</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Фентази</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Фантастика</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Ужасы</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Боевые искусства</TextBlock>
-                                        </ComboBoxItem>
-                                    </ComboBox>
-                                </Grid>
+
                                 <Grid Margin="0,0,0,15">
                                     <TextBlock>
                                          Возраст
@@ -187,7 +147,7 @@
                                     <TextBlock>
                                          По версии
                                     </TextBlock>
-                                    <ComboBox SelectedIndex="2" SelectedItem="{Binding Version}" Margin="60,0,0,0">
+                                    <ComboBox SelectedIndex="1" SelectedItem="{Binding Version}" Margin="60,0,0,0">
                                         <ComboBoxItem>
                                             <TextBlock>AniMang</TextBlock>
                                         </ComboBoxItem>
@@ -238,7 +198,8 @@
                 <TabItem.Content>
                     <!--Настройки-->
                     <Grid>
-                        
+                        <TextBlock Text="{Binding Ganers}"/>
+
                     </Grid>
                 </TabItem.Content>
             </TabItem>

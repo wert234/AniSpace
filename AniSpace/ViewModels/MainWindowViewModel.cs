@@ -4,6 +4,7 @@ using AniSpace.Infructuctre.LinqExtensions;
 using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeGaner;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
+using AniSpace.Infructuctre.UserControls.AnimeNewsControl;
 using AniSpace.Models;
 using AniSpace.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,7 @@ namespace AniSpace.ViewModels
         }
         #endregion
         #region MenuContentPropertys
+        public ObservableCollection<AnimeNewsControl> AnimeNews { get; set; }
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
         public AnimeDbContext AnimeDb { get; set; }
@@ -67,10 +69,43 @@ namespace AniSpace.ViewModels
                 OnPropertyChanged();
             }
         }
+        private int _AnimeTitelsOpasity = 1;
+        public int AnimeTitelsOpasity
+        {
+            get => _AnimeTitelsOpasity;
+            set
+            {
+                if(_AnimeTitelsOpasity == value) return;
+                _AnimeTitelsOpasity = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _AnimeNewsOpasity = 0;
+        public int AnimeNewsOpasity
+        {
+            get => _AnimeNewsOpasity;
+            set
+            {
+                if(_AnimeNewsOpasity == value) return;
+                _AnimeNewsOpasity = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
         #region MenuSortingPropertys
 
+        private bool _isOpenSortingMenu = true;
+        public bool isOpenSortingMenu
+        {
+            get => _isOpenSortingMenu;
+            set
+            {
+                if(_isOpenSortingMenu == value) return;
+                _isOpenSortingMenu = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<AnimeGaner> Ganers { get; set; }
 
         private ComboBoxItem _Years;
@@ -143,11 +178,21 @@ namespace AniSpace.ViewModels
         private bool CanSearchApplicationCommandExecuted(object p)
         {
             if (SelectedItem is null) return false;
-            if (SelectedItem.Content.ToString() == "новинки") return true;
-            else return false;
+            if (SelectedItem.Content.ToString() == "новинки")
+            {
+                isOpenSortingMenu = true;
+                AnimeNewsOpasity = 0;
+                AnimeTitelsOpasity = 1;
+                return true;
+            }
+                isOpenSortingMenu = false;
+                AnimeNewsOpasity = 1;
+                AnimeTitelsOpasity = 0;
+                return false;
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
+            // Исправить код!!!!
             List<string> str = new List<string>();
             foreach (AnimeGaner item in Ganers)
             {
@@ -176,6 +221,8 @@ namespace AniSpace.ViewModels
         private bool CanMoreApplicationCommandExecuted(object p) => true;
         private async Task OnMoreApplicationCommandExecuted()
         {
+
+            //Улучшить код!!!!!!!!
             List<string> str = new List<string>();
             foreach (AnimeGaner item in Ganers)
             {
@@ -202,6 +249,7 @@ namespace AniSpace.ViewModels
             AnimeDb = new AnimeDbContext();
             Animes = new ObservableCollection<AnimeBase>();
             SavedAnimeBoxItems = new ObservableCollection<UserControl>();
+            AnimeNews = new ObservableCollection<AnimeNewsControl>();
             #endregion
             #region CommandsInition
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);
@@ -229,6 +277,9 @@ namespace AniSpace.ViewModels
             Ganers.Add(new AnimeGaner("Фантастика"));
             Ganers.Add(new AnimeGaner("Боевые искусства"));
             Ganers.Add(new AnimeGaner("Ужасы"));
+            #endregion
+            #region News
+            News.Create(AnimeNews);
             #endregion
         }
     }

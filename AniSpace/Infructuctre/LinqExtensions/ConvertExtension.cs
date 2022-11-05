@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace AniSpace.Infructuctre.LinqExtensions
 {
@@ -12,6 +13,8 @@ namespace AniSpace.Infructuctre.LinqExtensions
         {
             Input = Regex.Replace(Input, @"Part\s[1-9]", " ");
             Input = Regex.Replace(Input, @"Movie\s[1-9]", " ");
+            Input = Regex.Replace(Input, @"Часть\s[1-9]", " ");
+            Input = Regex.Replace(Input, @"Фильм\s[1-9]", " ");
             for (int i = 0; i < Input.Length; i++)
             {
                 if (Input[i] == sign)
@@ -43,6 +46,7 @@ namespace AniSpace.Infructuctre.LinqExtensions
 
         public static string GanerToShikiGaner(this string Input, string Dafalt)
         {
+            string ShikimoriGaners = "";
             Dictionary<string, string> ganers = new Dictionary<string, string>
             {
                 {"Комедия", "4-Comedy" },
@@ -63,7 +67,12 @@ namespace AniSpace.Infructuctre.LinqExtensions
                 {"Этти", "9-Ecchi" },
             };
             if(Input is null) return Dafalt;
-            return ganers[Input];
+            foreach (var item in Input.Split(", "))
+            {
+                ShikimoriGaners = ShikimoriGaners  + "," + ganers[item];
+            }
+              
+            return ShikimoriGaners.Remove(0,1);
         }
     }
 }

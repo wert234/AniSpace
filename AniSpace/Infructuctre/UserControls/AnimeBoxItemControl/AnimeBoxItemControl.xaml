@@ -43,6 +43,7 @@
                     <TextBlock
                     Margin="0,6,0,4"
                     FontSize="15"
+                    Foreground="{Binding ElementName=AnimeBoxItem, Path=RaitingColor}"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
                 />
                 </DockPanel>

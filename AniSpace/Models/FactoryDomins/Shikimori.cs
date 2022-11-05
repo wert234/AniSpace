@@ -9,6 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Net.Http;
+using System.Net;
 
 namespace AniSpace.Models.FactoryDomins
 {
@@ -24,10 +26,10 @@ namespace AniSpace.Models.FactoryDomins
         internal Shikimori(AnimeBoxItemControl anime)
         {
             _Anime = anime;
-            _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
+            _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/?search={_Anime.AnimeName}"));
             if(_Anime.AnimeAge != null)
             if (_Anime.AnimeAge != "")
-                _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge.Remove(4)}?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
+                _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge.Remove(4)}?search={_Anime.AnimeName}"));
             _Content = new List<string>();
             _Document = new HtmlDocument();
             _Tegs = new List<string>();
@@ -50,6 +52,7 @@ namespace AniSpace.Models.FactoryDomins
         {
             using (var client = new AnimeClient())
             {
+                
                 var respons = await client.SendAsync(_Request);
                 return await respons.Content.ReadAsStringAsync();
             }
@@ -62,7 +65,7 @@ namespace AniSpace.Models.FactoryDomins
                 GetDirectAcync();
                 return;
             }
-            if (_Document.DocumentNode.SelectSingleNode("//div[@class='cc-entries']").InnerText.Contains("Ничего нет") && _Request.RequestUri.ToString().Contains(_Anime.AnimeName.ConvertToSearchName(':')))
+            if (_Document.DocumentNode.SelectSingleNode("//div[@class='cc-entries']").InnerText.Contains("Ничего нет") && _Request.RequestUri.ToString().Contains(_Anime.AnimeName))
             {
                 _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge}?search={_Anime.AnimeOrigName.ConvertToSearchName(':')}"));
                 await HowToGet();
@@ -101,6 +104,8 @@ namespace AniSpace.Models.FactoryDomins
         }
         private async Task GetAsync()
         {
+            if (_Document.DocumentNode?.SelectNodes("//article")?.Count != null)
+                _Document.LoadHtml(_Document.DocumentNode.SelectSingleNode("//article").InnerHtml);
             if (_Document.DocumentNode?.SelectNodes("//div[@class='cover linkeable anime-tooltip']")?.Count != null)
                 _Request = new AnimeRequest(new Uri(_Document.DocumentNode.SelectSingleNode("//div[@class='cover linkeable anime-tooltip']").Attributes["data-tooltip_url"].Value));
             else if(_Document.DocumentNode.SelectNodes("//a[@class='cover anime-tooltip']")?.Count != null)
@@ -108,6 +113,7 @@ namespace AniSpace.Models.FactoryDomins
             else _Request = new AnimeRequest(new Uri(_Document.DocumentNode.SelectSingleNode("//a").Attributes["data-tooltip_url"].Value));
             _Document.LoadHtml(await GetRespons());
             AnimeImage = _Document.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
+            _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(AnimeImage);
             AnimeName = _Document.DocumentNode.SelectSingleNode("//span[@class='name-ru']").InnerText;
 
             var collection = _Document.DocumentNode.SelectNodes("//span[@class='genre-ru']");
@@ -127,15 +133,15 @@ namespace AniSpace.Models.FactoryDomins
             {
                 foreach (HtmlNode node in tooltips)
                 {
-                    _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge}?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
-                    if (_Anime.AnimeAge == "") _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/?search={_Anime.AnimeName.ConvertToSearchName(':')}"));
+                    await Task.Delay(310);
+                    _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/season/{_Anime.AnimeAge}?search={_Anime.AnimeName}"));
+                    if (_Anime.AnimeAge == "") _Request = new AnimeRequest(new Uri($"https://shikimori.one/animes/?search={_Anime.AnimeName}"));
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(node.InnerHtml);
                     await GetAsync();
                     AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
                     _Content.Clear();
                     _Tegs.Clear();
-                    await Task.Delay(301);
                 }
                 AnimeControler._AnimeListBoxItems.Remove(AnimeControler._AnimeListBoxItems[0]);
             }
@@ -145,11 +151,12 @@ namespace AniSpace.Models.FactoryDomins
             var counter = Convert.ToInt32(_Limit);
             _Document.LoadHtml(await GetRespons());
             var tooltips = _Document.DocumentNode.SelectNodes("//article");
-            if (tooltips.Count < Convert.ToInt32(_Limit)) counter = tooltips.Count;
             if (tooltips != null)
             {
+                if (tooltips.Count < Convert.ToInt32(_Limit)) counter = tooltips.Count;
                 for (int i = 0; i < counter; i++)
                 {
+                    await Task.Delay(310);
                     _Request = new AnimeRequest(new Uri(_Uri));
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(tooltips[i].InnerHtml);
@@ -157,7 +164,6 @@ namespace AniSpace.Models.FactoryDomins
                     AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
                     _Content.Clear();
                     _Tegs.Clear();
-                    await Task.Delay(301);
                 }
             }
         }

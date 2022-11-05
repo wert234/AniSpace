@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="AniSpace.Infructuctre.UserControls.AnimeNewsControl.AnimeNewsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AniSpace.Infructuctre.UserControls.AnimeNewsControl"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Height="250" Width="300" Name="AnimeNews" >
+    <materialDesign:Card>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Stretch="UniformToFill"  Grid.Row="0" VerticalAlignment="Top" Source="{Binding ElementName=AnimeNews, Path=AnimeImage}"/>
+            <TextBlock Margin="0,20,0,0" Grid.Row="1" TextWrapping="Wrap" FontWeight="Bold" Text="{Binding ElementName=AnimeNews, Path=AnimeName}"/>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

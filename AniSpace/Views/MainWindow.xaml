@@ -40,160 +40,168 @@
                             <TextBox Text="{Binding SearchAnime}" VerticalAlignment="Center" FontSize="17" Margin="10,10,15,12" Cursor="Arrow"/>
                         </DockPanel>
 
-
                         <!--Сартировка-->
-                        <Grid Grid.RowSpan="2" Grid.Column="2">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="17" Margin="0,12,0,0">
+                        <materialDesign:DrawerHost OverlayBackground="Transparent" RightDrawerBackground="Transparent" IsRightDrawerOpen="{Binding isOpenSortingMenu}" Grid.RowSpan="2" Grid.Column="2">
+                            <materialDesign:DrawerHost.RightDrawerContent>
+                                <Grid Grid.RowSpan="2" Grid.Column="2" MinWidth="240">
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="17" Margin="0,12,0,0">
                                Сортировка
-                            </TextBlock>
-                            <StackPanel Margin="0,50,0,0">
-                                <Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="3*"></ColumnDefinition>
-                                            <ColumnDefinition Width="4*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid VerticalAlignment="Top" Margin="0,10,0,0">
-                                            <TextBlock VerticalAlignment="Center" Text="Годы"/>
-                                            <ComboBox SelectedItem="{Binding Years}" Margin="35,0,0,0">
+                                    </TextBlock>
+                                    <StackPanel Margin="0,50,0,0">
+                                        <Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid VerticalAlignment="Top" Margin="0,10,0,0">
+                                                    <TextBlock VerticalAlignment="Center" Text="Годы"/>
+                                                    <ComboBox SelectedItem="{Binding Years}" Margin="35,0,0,0">
+                                                        <ComboBoxItem>
+                                                            <TextBlock></TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2022</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2021</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2020</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2019</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2018</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2017</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2016</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2015</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2014</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2013</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2012</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2011</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2010</TextBlock>
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            <TextBlock>2009</TextBlock>
+                                                        </ComboBoxItem>
+                                                    </ComboBox>
+                                                </Grid>
+                                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                                    <TextBlock HorizontalAlignment="Left" FontSize="13" Margin="10,0,0,-45" VerticalAlignment="Center" Text="Жанры"/>
+                                                    <Expander Background="Transparent">
+                                                        <Grid>
+                                                            <ListBox Height="200" ItemsSource="{Binding Ganers}" materialDesign:ListBoxItemAssist.ShowSelection="False"/>
+                                                        </Grid>
+                                                    </Expander>
+
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid Margin="0,0,0,15">
+                                            <TextBlock>
+                                         Возраст
+                                            </TextBlock>
+                                            <ComboBox SelectedItem="{Binding Age}" Margin="50,0,0,0">
                                                 <ComboBoxItem>
                                                     <TextBlock></TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2022</TextBlock>
+                                                    <TextBlock>g</TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2021</TextBlock>
+                                                    <TextBlock>pg</TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2020</TextBlock>
+                                                    <TextBlock>pg_13</TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2019</TextBlock>
+                                                    <TextBlock>r</TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2018</TextBlock>
+                                                    <TextBlock>r_plus</TextBlock>
                                                 </ComboBoxItem>
                                                 <ComboBoxItem>
-                                                    <TextBlock>2017</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2016</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2015</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2014</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2013</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2012</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2011</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2010</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>2009</TextBlock>
+                                                    <TextBlock>rx</TextBlock>
                                                 </ComboBoxItem>
                                             </ComboBox>
                                         </Grid>
-                                        <StackPanel Grid.Column="1" Orientation="Vertical">
-                                            <TextBlock HorizontalAlignment="Left" FontSize="13" Margin="10,0,0,-45" VerticalAlignment="Center" Text="Жанры"/>
-                                            <Expander Background="Transparent">
-                                                <Grid>
-                                                    <ListBox Height="200" ItemsSource="{Binding Ganers}" materialDesign:ListBoxItemAssist.ShowSelection="False"/>
-                                                </Grid>
-                                            </Expander>
-
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid Margin="0,0,0,15">
-                                    <TextBlock>
-                                         Возраст
-                                    </TextBlock>
-                                    <ComboBox SelectedItem="{Binding Age}" Margin="50,0,0,0">
-                                        <ComboBoxItem>
-                                            <TextBlock></TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>g</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>pg</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>pg_13</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>r</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>r_plus</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>rx</TextBlock>
-                                        </ComboBoxItem>
-                                    </ComboBox>
-                                </Grid>
-                                <Grid Margin="0,0,0,15">
-                                    <TextBlock>
+                                        <Grid Margin="0,0,0,15">
+                                            <TextBlock>
                                          По версии
-                                    </TextBlock>
-                                    <ComboBox SelectedIndex="1" SelectedItem="{Binding Version}" Margin="60,0,0,0">
-                                        <ComboBoxItem>
-                                            <TextBlock>AniMang</TextBlock>
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <TextBlock>Shikimori</TextBlock>
-                                        </ComboBoxItem>
-                                    </ComboBox>
+                                            </TextBlock>
+                                            <ComboBox SelectedIndex="1" SelectedItem="{Binding Version}" Margin="60,0,0,0">
+                                                <ComboBoxItem>
+                                                    <TextBlock>AniMang</TextBlock>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>Shikimori</TextBlock>
+                                                </ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                        <Button Command="{Binding SearchApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">
+                                            Поиск
+                                        </Button>
+                                    </StackPanel>
                                 </Grid>
-                                <Button Command="{Binding SearchApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">
-                                    Поиск
-                                </Button>
-                            </StackPanel>
-
-
-                        </Grid>
+                            </materialDesign:DrawerHost.RightDrawerContent>
+                        </materialDesign:DrawerHost>
 
                         <!--контент-->
-                        <Grid Grid.Row="2">
-                            <ListBox ItemsSource="{Binding AnimeListBoxItems }"/>
-                            <Image Source="{Binding LoadingImage}" Height="50" Width="50">
-                                <Image.RenderTransform>
-                                    <RotateTransform x:Name="rotate" CenterX="25" CenterY="25"/>
-                                </Image.RenderTransform>
-                                <Image.Triggers>
-                                    <EventTrigger RoutedEvent="Loaded">
-                                        <BeginStoryboard>
-                                            <Storyboard RepeatBehavior="Forever">
-                                                <DoubleAnimation Storyboard.TargetName="rotate"
+
+                            <ListBox Grid.Row="2" Opacity="{Binding AnimeTitelsOpasity}" ItemsSource="{Binding AnimeListBoxItems }"/>
+                         <ListBox Panel.ZIndex="-1" Grid.Row="2" Grid.ColumnSpan="2" Opacity="{Binding AnimeNewsOpasity}" ItemsSource="{Binding AnimeNews }">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                         </ListBox>
+                        <Image Grid.Row="2" Source="{Binding LoadingImage}" Height="50" Width="50">
+                            <Image.RenderTransform>
+                                <RotateTransform x:Name="rotate" CenterX="25" CenterY="25"/>
+                            </Image.RenderTransform>
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimation Storyboard.TargetName="rotate"
                                      Storyboard.TargetProperty="Angle"
                                      By="-360" Duration="0:0:1"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Image.Triggers>
-                            </Image>
-                        </Grid>
-
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
+                        </Image>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
+            
             <TabItem MaxWidth="Infinity" Header="История">
                 <TabItem.Content>
                     <!--Таблица-->
                     <ListBox ItemsSource="{Binding SavedAnimeBoxItems}"/>
                 </TabItem.Content>
             </TabItem>
+            
             <TabItem MaxWidth="Infinity" Header="Настройки">
                 <TabItem.Content>
                     <!--Настройки-->
@@ -203,6 +211,7 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>

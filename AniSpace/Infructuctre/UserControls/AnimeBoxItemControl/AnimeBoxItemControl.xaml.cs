@@ -60,15 +60,35 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         #endregion
 
         #region AnimeRaiting
+
+        private string OldRaiting;
+        public Brush RaitingColor
+        {
+            get { return (Brush)GetValue(RaitingColorProperty); }
+            set { SetValue(RaitingColorProperty, value); }
+        }
+        public static readonly DependencyProperty RaitingColorProperty =
+            DependencyProperty.Register("RaitingColor", typeof(Brush), typeof(AnimeBoxItemControl));
+
+
         public string AnimeRaiting
         {
             get { return (string)GetValue(RaitingProperty); }
             set { SetValue(RaitingProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RaitingProperty =
             DependencyProperty.Register("AnimeRaiting", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
+
+        private void RaitingCompare()
+        {
+            if (OldRaiting is null || OldRaiting is "") OldRaiting = AnimeRaiting;
+            if (AnimeRaiting is null || AnimeRaiting is "") { RaitingColor = Brushes.Black; return; }
+            if (float.Parse(OldRaiting.Replace('.',',')) < float.Parse(AnimeRaiting.Replace('.', ',')))
+               RaitingColor = Brushes.Green;
+            if (float.Parse(OldRaiting.Replace('.', ',')) > float.Parse(AnimeRaiting.Replace('.', ',')))
+                RaitingColor = Brushes.Red;
+            OldRaiting = AnimeRaiting;
+        }
         #endregion
 
         #region AnimeImage
@@ -107,21 +127,27 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private bool CanChangeOnAniMangCommand(object p) => true;
         private async Task OnChangeOnAniMangCommand()
         {
-           await AnimeControler.Get("AniMang", this);
+            RaitingCompare();
+            await AnimeControler.Get("AniMang", this);
+            RaitingCompare();
         }
 
         public ICommand ChangeOnAniDBCommand { get; set; }
         private bool CanChangeOnAniDBCommand(object p) => true;
         private async Task OnChangeOnAniDBCommand()
         {
-           await AnimeControler.Get("AniDB", this);
+            RaitingCompare();
+            await AnimeControler.Get("AniDB", this);
+            RaitingCompare();
         }
 
         public ICommand ChangeOnShikimoriCommand { get; set; }
         private bool CanChangeOnShikimoriCommand(object p) => true;
         private async Task OnChangeOnShikimoriCommand()
         {
+            RaitingCompare();
             await AnimeControler.Get("Shikimori", this);
+            RaitingCompare();
         }
 
         #endregion
@@ -137,12 +163,12 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 
             #region ChangeStudioApplicationCommands     
             ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);
-            ChangeOnAniDBCommand = new RelayCommand(OnChangeOnAniDBCommand, CanChangeOnAniDBCommand);  
-            #endregion 
+            ChangeOnAniDBCommand = new RelayCommand(OnChangeOnAniDBCommand, CanChangeOnAniDBCommand);
+            #endregion
 
             #endregion
+            RaitingCompare();
             InitializeComponent();
-
         }
     }
 }

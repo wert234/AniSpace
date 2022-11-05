@@ -81,6 +81,7 @@ namespace AniSpace.Models.FactoryDomins
                 _Document.LoadHtml(_AnimeList[0].InnerHtml);
                 _Anime.AnimeTegs = _AnimeList[0].SelectSingleNode("//u").InnerText;
                 AnimeImage = _AnimeList[0].SelectSingleNode($"//img").Attributes["src"].Value;
+                _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(AnimeImage);
                 if (_AnimeList[0]?.SelectNodes("//div[@class='average']")?.ToList().Count > 0) _Anime.AnimeRaiting = _Document.DocumentNode.SelectSingleNode("//div[@class='average']").InnerText;
                 else
                 {

@@ -171,7 +171,7 @@ namespace AniSpace.Models.FactoryDomins
         {
             _Anime.AnimeTegs = "Такого аниме нет на этом сайте";
             _Anime.AnimeRaiting = "Ошибка 404";
-            _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\ErrorImage.png");
+            _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"pack://application:,,,/Resources/Img/ErrorImage.png");
         }
     }
 }

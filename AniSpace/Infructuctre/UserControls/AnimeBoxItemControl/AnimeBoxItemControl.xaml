@@ -14,7 +14,7 @@
             </Grid.ColumnDefinitions>
 
             <Image
-                Source="{Binding ElementName=AnimeBoxItem,Path=AnimeImage}"
+               Source="{Binding ElementName=AnimeBoxItem,Path=AnimeImage}"
                Height="105"
                Width="105"
             />

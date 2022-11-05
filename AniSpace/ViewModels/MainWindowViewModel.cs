@@ -23,7 +23,6 @@ namespace AniSpace.ViewModels
     internal class MainWindowViewModel : ViewModelBase
     {
         #region Propertys
-
         #region MenuTitelPropertys
 
         private ComboBoxItem? _SelectedItem;
@@ -58,17 +57,18 @@ namespace AniSpace.ViewModels
         public ObservableCollection<Models.AnimeBase> Animes { get; set; }
         public ObservableCollection<UserControl> SavedAnimeBoxItems { get; set; }
 
-        private ImageSource? _LoadingImage;
-        public ImageSource? LoadingImage
+        private bool? _isLoading;
+        public bool? isLoading
         {
-            get => _LoadingImage;
+            get => _isLoading;
             set
             {
-                if (Equals(_LoadingImage, value)) return;
-                _LoadingImage = value;
+                if (Equals(_isLoading, value)) return;
+                _isLoading = value;
                 OnPropertyChanged();
             }
         }
+
         private int _AnimeTitelsOpasity = 1;
         public int AnimeTitelsOpasity
         {
@@ -120,6 +120,20 @@ namespace AniSpace.ViewModels
             }
         }
 
+        public string GenresList
+        {
+            get
+            {
+                List<string> str = new List<string>();
+                foreach (AnimeGaner item in Ganers)
+                {
+                    if (item.GanerSelected is false) continue;
+                    str.Add(item.GanerToString(""));
+                }
+                return string.Join(", ", str);
+            }
+        }
+
         private ComboBoxItem _Genre;
         public ComboBoxItem Genre
         {
@@ -167,11 +181,9 @@ namespace AniSpace.ViewModels
         }
 
         #endregion
-
         #endregion
 
         #region Commands
-
         #region SearchApplicationCommand
 
         public ICommand SearchApplicationCommand { get; }
@@ -192,27 +204,17 @@ namespace AniSpace.ViewModels
         }
         private async Task OnSearchApplicationCommandExecuted()
         {
-            // Исправить код!!!!
-            List<string> str = new List<string>();
-            foreach (AnimeGaner item in Ganers)
-            {
-                if (item.GanerSelected is false) continue;
-                str.Add(item.GanerToString(""));
-            }
-            var ganers = string.Join(", ", str);
-
-            LoadingImage = (ImageSource)new ImageSourceConverter().ConvertFrom(@"D:\Програмирование\Visual Studio\AniSpace\AniSpace\Resources\Img\Background (1).png");
+            isLoading = true;
             AnimeListBoxItems.Clear();
             AnimeCunter = 1;
             if (_SearchAnime == "") _SearchAnime = null;
             if(_SearchAnime != null)
             {
-                await AnimeControler.SearchAsync(_SearchAnime, _Years.ConvertToString(""), _Version.ConvertToString("shikimori"), ganers);
-                LoadingImage = null;
+                await AnimeControler.SearchAsync(_SearchAnime, _Years.ConvertToString(""), _Version.ConvertToString("shikimori"), GenresList);
+                isLoading = false;
                 return;
             }
             await OnMoreApplicationCommandExecuted();
-            LoadingImage = null;
         }
 
         #endregion
@@ -221,22 +223,13 @@ namespace AniSpace.ViewModels
         private bool CanMoreApplicationCommandExecuted(object p) => true;
         private async Task OnMoreApplicationCommandExecuted()
         {
-
-            //Улучшить код!!!!!!!!
-            List<string> str = new List<string>();
-            foreach (AnimeGaner item in Ganers)
-            {
-                if (item.GanerSelected is false) continue;
-                str.Add(item.GanerToString(""));
-            }
-            var ganers = string.Join(", ", str);
-
             if (AnimeListBoxItems.Count != 0)
             AnimeListBoxItems.Remove(AnimeListBoxItems[AnimeListBoxItems.Count - 1]);
 
             await AnimeControler.SearchMoreAsync(_Version.ConvertToString("shikimori"),AnimeCunter.ToString(),
-                  Years.ConvertToString("2022"), ganers, Age.ConvertToString("pg_13"),MoreApplicationCommand);
+                  Years.ConvertToString("2022"), GenresList, Age.ConvertToString("pg_13"),MoreApplicationCommand);
            AnimeCunter++;
+            isLoading = false;
         }
         #endregion
         #endregion

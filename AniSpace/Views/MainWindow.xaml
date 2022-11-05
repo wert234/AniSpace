@@ -166,31 +166,15 @@
                         </materialDesign:DrawerHost>
 
                         <!--контент-->
-
-                            <ListBox Grid.Row="2" Opacity="{Binding AnimeTitelsOpasity}" ItemsSource="{Binding AnimeListBoxItems }"/>
-                         <ListBox Panel.ZIndex="-1" Grid.Row="2" Grid.ColumnSpan="2" Opacity="{Binding AnimeNewsOpasity}" ItemsSource="{Binding AnimeNews }">
+                        <ListBox Grid.Row="2" Opacity="{Binding AnimeTitelsOpasity}" ItemsSource="{Binding AnimeListBoxItems }"/>
+                        <ListBox Panel.ZIndex="-1" Grid.Row="2" Grid.ColumnSpan="2" Opacity="{Binding AnimeNewsOpasity}" ItemsSource="{Binding AnimeNews }">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
-                         </ListBox>
-                        <Image Grid.Row="2" Source="{Binding LoadingImage}" Height="50" Width="50">
-                            <Image.RenderTransform>
-                                <RotateTransform x:Name="rotate" CenterX="25" CenterY="25"/>
-                            </Image.RenderTransform>
-                            <Image.Triggers>
-                                <EventTrigger RoutedEvent="Loaded">
-                                    <BeginStoryboard>
-                                        <Storyboard RepeatBehavior="Forever">
-                                            <DoubleAnimation Storyboard.TargetName="rotate"
-                                     Storyboard.TargetProperty="Angle"
-                                     By="-360" Duration="0:0:1"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Image.Triggers>
-                        </Image>
+                        </ListBox>
+                        <ProgressBar Grid.Row="2" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="{Binding isLoading}" />
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -201,7 +185,7 @@
                     <ListBox ItemsSource="{Binding SavedAnimeBoxItems}"/>
                 </TabItem.Content>
             </TabItem>
-            
+
             <TabItem MaxWidth="Infinity" Header="Настройки">
                 <TabItem.Content>
                     <!--Настройки-->
@@ -211,7 +195,6 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            
         </TabControl>
     </Grid>
 </Window>

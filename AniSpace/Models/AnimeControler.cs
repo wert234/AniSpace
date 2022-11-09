@@ -1,14 +1,7 @@
 ﻿using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models.Factory;
-using AniSpace.Models.FactoryDomins;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,8 +15,7 @@ namespace AniSpace.Models
         animeTipe switch
         {
             "AniMang" => new AniMangFactory(),
-            "AniDB" => new AniDBFactory(),
-            "Shikimori" => new ShikimoriFactory()
+            "Shikimori" => new ShikimoriFactory(),
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
@@ -39,7 +31,7 @@ namespace AniSpace.Models
             item.AnimeName = $"{Name}";
             item.AnimeOrigName = NameOrig;
             item.AnimeRaiting = $"{Raiting}";
-            item.AnimeAge = seson;
+            item.AnimeAge = $"{seson}";
             item.AnimeTegs = tegs;
             item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
         }

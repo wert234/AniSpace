@@ -3,11 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AniSpace"
-        xmlns:g="clr-namespace:AniSpace.Infructuctre.UserControls.AnimeGaner"
-        xmlns:vm="clr-namespace:AniSpace.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-     
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:AniSpace" mc:Ignorable="d"
+        xmlns:vm="clr-namespace:AniSpace.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="AniSpace" Height="500" MinHeight="500" MinWidth="800" Width="800" Name="Window">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -115,7 +112,6 @@
                                                 </StackPanel>
                                             </Grid>
                                         </Grid>
-
                                         <Grid Margin="0,0,0,15">
                                             <TextBlock>
                                          Возраст
@@ -170,7 +166,7 @@
                         <ListBox Panel.ZIndex="-1" Grid.Row="2" Grid.ColumnSpan="2" Opacity="{Binding AnimeNewsOpasity}" ItemsSource="{Binding AnimeNews }">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
+                                    <StackPanel Orientation="Horizontal" CanVerticallyScroll="False" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                         </ListBox>

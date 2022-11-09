@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using AniSpace.Infructuctre.LinqExtensions;
 using System.IO;
+using AniSpace.Infructuctre.LinqExtensions;
 
 namespace AniSpace.Models.FactoryDomins
 {
@@ -18,7 +19,6 @@ namespace AniSpace.Models.FactoryDomins
         private HtmlDocument _Document;
         private List<HtmlNode>? _AnimeList;
         private string _Age;
-        private string _Page;
         private string _Uri;
         internal AniMang(AnimeBoxItemControl anime)
         {
@@ -31,7 +31,6 @@ namespace AniSpace.Models.FactoryDomins
         internal AniMang(string page, string limit, string season, string ganers, string rating)
         {
             _Age = season;
-            _Page = page;
             _Anime = new AnimeBoxItemControl();
             _Content = new List<string>();
             _Document = new HtmlDocument();
@@ -63,8 +62,11 @@ namespace AniSpace.Models.FactoryDomins
         internal async Task HowToGet()
         {
             if (_Document.Text is null) _Document.LoadHtml(await GetRespons());
-            if (_Anime.AnimeAge is null || _Anime.AnimeAge == "") _Age = ""; if (_Anime.AnimeAge != "") _Age = _Anime.AnimeAge.Remove(4);
-                _AnimeList = _Document.DocumentNode?.SelectNodes("//section")?.Where(x => x.InnerText.Contains(_Age)).ToList();
+            if (_Anime.AnimeAge is null || _Anime.AnimeAge == "") _Age = "";
+            if (_Anime.AnimeAge != "" && _Anime.AnimeAge.Length > 5) _Age = _Anime.AnimeAge.Remove(4);
+            else _Age = _Anime.AnimeAge;
+            _AnimeList = _Document.DocumentNode?.SelectNodes("//section")?.Where(x => x.InnerText.Contains(_Age)).ToList();
+            _AnimeList = _AnimeList.CompareMatches(_Anime.AnimeName);
             await GetAsync();
         }
         private async Task GetAsync()
@@ -77,9 +79,11 @@ namespace AniSpace.Models.FactoryDomins
             }
             if (_Document.DocumentNode?.SelectNodes("//div[@class='s-navi']")?.ToList()?.Count is null)
             {
+                if(_AnimeList.Count >= 2) _AnimeList = _AnimeList.Where(x => x.InnerText.Contains(_Age)).ToList();
                 _Content.Add(_AnimeList[0].SelectSingleNode("//span").InnerText);
                 _Document.LoadHtml(_AnimeList[0].InnerHtml);
                 _Anime.AnimeTegs = _AnimeList[0].SelectSingleNode("//u").InnerText;
+                _Anime.AnimeAge = _AnimeList[0].SelectNodes("//td").Where(x => x.InnerText.Contains("Год")).ToList()[0].InnerText.Remove(0,4);
                 AnimeImage = _AnimeList[0].SelectSingleNode($"//img").Attributes["src"].Value;
                 _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(AnimeImage);
                 if (_AnimeList[0]?.SelectNodes("//div[@class='average']")?.ToList().Count > 0) _Anime.AnimeRaiting = _Document.DocumentNode.SelectSingleNode("//div[@class='average']").InnerText;
@@ -108,7 +112,7 @@ namespace AniSpace.Models.FactoryDomins
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(node.InnerHtml);
                     await HowToSearch();
-                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
+                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _AnimeList.Clear();
                     _Content.Clear();
                 }
@@ -130,7 +134,7 @@ namespace AniSpace.Models.FactoryDomins
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(node.InnerHtml);
                     await HowToSearch();
-                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
+                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _AnimeList.Clear();
                     _Content.Clear();
                 }

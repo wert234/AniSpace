@@ -26,6 +26,7 @@
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeName}"
+                    TextWrapping="Wrap"
                      />
                 </DockPanel>
                 
@@ -35,30 +36,43 @@
                     Margin="0,6,0,4"
                     FontSize="15"
                     Text="{Binding ElementName=AnimeBoxItem, Path=AnimeTegs}"
+                    TextWrapping="Wrap"
                      />
                     </DockPanel>
 
-                    <DockPanel>
-                    <TextBlock Margin="0,6,0,4" FontSize="15" Text="Рейтинг: "/>
-                    <TextBlock
-                    Margin="0,6,0,4"
-                    FontSize="15"
-                    Foreground="{Binding ElementName=AnimeBoxItem, Path=RaitingColor}"
-                    Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
-                />
-                </DockPanel>
+                    <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        
+                       <TextBlock Margin="0,6,0,4" FontSize="15" Text="Рейтинг: "/>
+                       <TextBlock
+                       Margin="0,6,0,4"
+                       FontSize="15"
+                       Foreground="{Binding ElementName=AnimeBoxItem, Path=RaitingColor}"
+                       Text="{Binding ElementName=AnimeBoxItem, Path=AnimeRaiting}"
+                        />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,180,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock Margin="0,6,0,4" FontSize="15" Text="Год: "/>
+                        <TextBlock
+                       Margin="0,6,0,4"
+                       FontSize="15"
+                       Text="{Binding ElementName=AnimeBoxItem, Path=AnimeAge}"
+                        />
+                    </StackPanel>
+
+                    <Menu Margin="0,0,90,0" FontSize="25" VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Right" Height="35">
+                        <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
+                            <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= AddApplicationCommand}" FontSize="15" Header="Добавить"></MenuItem>
+                            <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= RemoveApplicationCommand}" FontSize="15" Header="Удалить"></MenuItem>
+                            <MenuItem FontSize="15" Header="По версии">
+                                <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniMangCommand}" FontSize="15" Header="AniMang"></MenuItem>
+                                <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnShikimoriCommand}" FontSize="15" Header="Shikimori"></MenuItem>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </Grid>
             </StackPanel>
-            <Menu FontSize="25" VerticalAlignment="Bottom" Margin="0,0,50,15" Grid.Column="2" HorizontalAlignment="Right" Height="35">
-                <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
-                    <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= AddApplicationCommand}" FontSize="15" Header="Добавить"></MenuItem>
-                    <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= RemoveApplicationCommand}" FontSize="15" Header="Удалить"></MenuItem>
-                    <MenuItem FontSize="15" Header="По версии">
-                        <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniMangCommand}" FontSize="15" Header="AniMang"></MenuItem>
-                        <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniDBCommand}" FontSize="15" Header="AniDB"></MenuItem>
-                        <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnShikimoriCommand}" FontSize="15" Header="Shikimori"></MenuItem>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
+            
         </Grid>
     </ListBoxItem>
 </UserControl>

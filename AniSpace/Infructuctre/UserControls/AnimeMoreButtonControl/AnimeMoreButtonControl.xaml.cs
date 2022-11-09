@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl
 {
-    /// <summary>
-    /// Логика взаимодействия для AnimeMoreButtonControl.xaml
-    /// </summary>
     public partial class AnimeMoreButtonControl : UserControl
     {
         public ICommand Command
@@ -31,6 +28,11 @@ namespace AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl
         public AnimeMoreButtonControl()
         {
             InitializeComponent();
+        }
+        public AnimeMoreButtonControl(ICommand command)
+        {
+                Command = command;
+               InitializeComponent();
         }
     }
 }

@@ -112,6 +112,7 @@ namespace AniSpace.Models.FactoryDomins
                 _Request = new AnimeRequest(new Uri(_Document.DocumentNode.SelectSingleNode("//a[@class='cover anime-tooltip']").Attributes["data-tooltip_url"].Value));
             else _Request = new AnimeRequest(new Uri(_Document.DocumentNode.SelectSingleNode("//a").Attributes["data-tooltip_url"].Value));
             _Document.LoadHtml(await GetRespons());
+            _Anime.AnimeAge = _Document.DocumentNode.SelectNodes("//div[@class='b-tag linkeable']")[1].InnerText.Remove(4);
             AnimeImage = _Document.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
             _Anime.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(AnimeImage);
             AnimeName = _Document.DocumentNode.SelectSingleNode("//span[@class='name-ru']").InnerText;
@@ -139,7 +140,7 @@ namespace AniSpace.Models.FactoryDomins
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(node.InnerHtml);
                     await GetAsync();
-                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
+                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _Content.Clear();
                     _Tegs.Clear();
                 }
@@ -161,7 +162,7 @@ namespace AniSpace.Models.FactoryDomins
                     _Document.LoadHtml(await GetRespons());
                     _Document.LoadHtml(tooltips[i].InnerHtml);
                     await GetAsync();
-                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, "", _Anime.AnimeTegs);
+                    AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _Content.Clear();
                     _Tegs.Clear();
                 }

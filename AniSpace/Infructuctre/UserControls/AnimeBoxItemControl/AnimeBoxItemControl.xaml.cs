@@ -27,7 +27,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             set { SetValue(AnimeAgeProperty, value); }
         }
         public static readonly DependencyProperty AnimeAgeProperty =
-            DependencyProperty.Register("AnimeAge", typeof(string), typeof(AnimeBoxItemControl), new PropertyMetadata(""));
+            DependencyProperty.Register("AnimeAge", typeof(string), typeof(AnimeBoxItemControl));
         #endregion
 
         #region AnimeName
@@ -132,15 +132,6 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             RaitingCompare();
         }
 
-        public ICommand ChangeOnAniDBCommand { get; set; }
-        private bool CanChangeOnAniDBCommand(object p) => true;
-        private async Task OnChangeOnAniDBCommand()
-        {
-            RaitingCompare();
-            await AnimeControler.Get("AniDB", this);
-            RaitingCompare();
-        }
-
         public ICommand ChangeOnShikimoriCommand { get; set; }
         private bool CanChangeOnShikimoriCommand(object p) => true;
         private async Task OnChangeOnShikimoriCommand()
@@ -159,11 +150,10 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 
             AddApplicationCommand = new RelayCommand(OnAddApplicationCommandExecuted, CanAddApplicationCommandExecuted);
             RemoveApplicationCommand = new RelayCommand(OnRemoveApplicationCommand, CanRemoveApplicationCommand);
-            ChangeOnShikimoriCommand = new RelayCommand(OnChangeOnShikimoriCommand, CanChangeOnShikimoriCommand);
 
             #region ChangeStudioApplicationCommands     
+            ChangeOnShikimoriCommand = new RelayCommand(OnChangeOnShikimoriCommand, CanChangeOnShikimoriCommand);
             ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);
-            ChangeOnAniDBCommand = new RelayCommand(OnChangeOnAniDBCommand, CanChangeOnAniDBCommand);
             #endregion
 
             #endregion

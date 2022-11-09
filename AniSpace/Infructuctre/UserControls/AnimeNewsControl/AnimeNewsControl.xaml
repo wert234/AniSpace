@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AniSpace.Infructuctre.UserControls.AnimeNewsControl"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Height="250" Width="300" Name="AnimeNews" >
+             Height="240" Width="300" Name="AnimeNews" >
     <materialDesign:Card>
         <Grid>
             <Grid.RowDefinitions>

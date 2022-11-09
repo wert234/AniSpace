@@ -1,22 +1,15 @@
 ﻿using AniSpace.Data;
 using AniSpace.Infructuctre.Commands.Base;
 using AniSpace.Infructuctre.LinqExtensions;
-using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeGaner;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
-using AniSpace.Infructuctre.UserControls.AnimeNewsControl;
 using AniSpace.Models;
 using AniSpace.ViewModels.Base;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace AniSpace.ViewModels
 {
@@ -50,7 +43,7 @@ namespace AniSpace.ViewModels
         }
         #endregion
         #region MenuContentPropertys
-        public ObservableCollection<AnimeNewsControl> AnimeNews { get; set; }
+        public ObservableCollection<UserControl> AnimeNews { get; set; }
         public ObservableCollection<UserControl> AnimeListBoxItems { get; set; }
         public int AnimeCunter { get; set; } = 1;
         public AnimeDbContext AnimeDb { get; set; }
@@ -197,6 +190,7 @@ namespace AniSpace.ViewModels
                 AnimeTitelsOpasity = 1;
                 return true;
             }
+
                 isOpenSortingMenu = false;
                 AnimeNewsOpasity = 1;
                 AnimeTitelsOpasity = 0;
@@ -232,6 +226,17 @@ namespace AniSpace.ViewModels
             isLoading = false;
         }
         #endregion
+
+        #region MoreNewsApplicationCommand
+        public int NewsCounter { get; set; } = 10;
+        public ICommand MoreNewsApplicationCommand { get; set; }
+        private bool CanMoreNewsApplicationCommandExecuted(object p) => true;
+        private async Task OnMoreNewsApplicationCommandExecuted()
+        {
+            NewsCounter = NewsCounter + 10;
+           await News.CreateAsync(AnimeNews, NewsCounter, new AnimeMoreButtonControl(MoreNewsApplicationCommand));
+        }
+        #endregion
         #endregion
 
         public MainWindowViewModel()
@@ -242,14 +247,15 @@ namespace AniSpace.ViewModels
             AnimeDb = new AnimeDbContext();
             Animes = new ObservableCollection<AnimeBase>();
             SavedAnimeBoxItems = new ObservableCollection<UserControl>();
-            AnimeNews = new ObservableCollection<AnimeNewsControl>();
+            AnimeNews = new ObservableCollection<UserControl>();
             #endregion
             #region CommandsInition
             SearchApplicationCommand = new RelayCommand(OnSearchApplicationCommandExecuted, CanSearchApplicationCommandExecuted);
             MoreApplicationCommand = new RelayCommand(OnMoreApplicationCommandExecuted, CanMoreApplicationCommandExecuted);
+            MoreNewsApplicationCommand = new RelayCommand(OnMoreNewsApplicationCommandExecuted, CanMoreNewsApplicationCommandExecuted);
             #endregion
             #region Db
-              AnimeDbControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
+            AnimeDbControler.LoadAnime(Animes, AnimeDb, SavedAnimeBoxItems);
             #endregion
             #region Ganers
             Ganers = new ObservableCollection<AnimeGaner>();
@@ -272,7 +278,7 @@ namespace AniSpace.ViewModels
             Ganers.Add(new AnimeGaner("Ужасы"));
             #endregion
             #region News
-            News.Create(AnimeNews);
+            News.Create(AnimeNews, NewsCounter, new AnimeMoreButtonControl(MoreNewsApplicationCommand));
             #endregion
         }
     }

@@ -13,19 +13,19 @@ namespace AniSpace.Models.Factory
         internal override async Task GetAnime(AnimeBoxItemControl anime)
         {
             AniMang aniMang = new AniMang(anime);
-            await aniMang.HowToGet();
+            await aniMang.HowToGetAsync();
         }
 
         internal override async Task GetListAnime(string page, string limit, string season, string ganers = null, string rating = null)
         {
             AniMang aniMang = new AniMang(page, limit, season, ganers, rating);
-            await aniMang.GetList();
+            await aniMang.GetListAsync();
         }
 
         internal override async Task SearchAnime(AnimeBoxItemControl anime)
         {
             AniMang aniMang = new AniMang(anime);
-            await aniMang.Search();
+            await aniMang.SearchAsync();
         }
     }
 }

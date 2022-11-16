@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Img\AniSpaceIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
@@ -28,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Img\AniSpaceIcon.ico" />
     <Resource Include="Resources\Img\ErrorImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

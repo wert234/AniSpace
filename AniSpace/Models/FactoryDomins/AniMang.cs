@@ -6,8 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using AniSpace.Infructuctre.LinqExtensions;
-using System.IO;
-using AniSpace.Infructuctre.LinqExtensions;
 
 namespace AniSpace.Models.FactoryDomins
 {
@@ -20,7 +18,7 @@ namespace AniSpace.Models.FactoryDomins
         private List<HtmlNode>? _AnimeList;
         private string _Age;
         private string _Uri;
-        internal AniMang(AnimeBoxItemControl anime)
+        public AniMang(AnimeBoxItemControl anime)
         {
             _Anime = anime;
             _Request = new AnimeRequest(new Uri($"https://animang.ru/?s={_Anime.AnimeName.ConvertToSearchName(':')}"));
@@ -45,7 +43,7 @@ namespace AniSpace.Models.FactoryDomins
             _Uri = _Uri + "&sort_rai=ratings_average&sort_stat=status";
             _Request = new AnimeRequest(new Uri(_Uri));
         }
-        private async Task<string> GetRespons()
+        private async Task<string> GetResponsAsync()
         {
             using (var client = new AnimeClient())
             {
@@ -53,15 +51,15 @@ namespace AniSpace.Models.FactoryDomins
                 return await respons.Content.ReadAsStringAsync();
             }    
         }
-        private async Task HowToSearch()
+        private async Task HowToSearchAsync()
         {
-            if (_Document.Text is null) _Document.LoadHtml(await GetRespons());
+            if (_Document.Text is null) _Document.LoadHtml(await GetResponsAsync());
             _AnimeList?.Add(_Document.DocumentNode);
             await GetAsync();
         }
-        internal async Task HowToGet()
+        internal async Task HowToGetAsync()
         {
-            if (_Document.Text is null) _Document.LoadHtml(await GetRespons());
+            if (_Document.Text is null) _Document.LoadHtml(await GetResponsAsync());
             if (_Anime.AnimeAge is null || _Anime.AnimeAge == "") _Age = "";
             if (_Anime.AnimeAge != "" && _Anime.AnimeAge.Length > 5) _Age = _Anime.AnimeAge.Remove(4);
             else _Age = _Anime.AnimeAge;
@@ -74,7 +72,7 @@ namespace AniSpace.Models.FactoryDomins
             if ((_AnimeList?.Count is null || _AnimeList.Count == 0) && _Request.RequestUri.ToString().Contains(_Anime.AnimeName.ConvertToSearchName(':')))
             {
                 _Request = new AnimeRequest(new Uri($"https://animang.ru/?s={_Anime.AnimeOrigName.ConvertToSearchName(':')}"));
-                _Document.LoadHtml(await GetRespons());
+                _Document.LoadHtml(await GetResponsAsync());
                 _AnimeList = _Document.DocumentNode?.SelectNodes("//section")?.Where(x => x.InnerText.Contains(_Age)).ToList();
             }
             if (_Document.DocumentNode?.SelectNodes("//div[@class='s-navi']")?.ToList()?.Count is null)
@@ -90,7 +88,7 @@ namespace AniSpace.Models.FactoryDomins
                 else
                 {
                     _Request = new AnimeRequest(new Uri(_Document.DocumentNode.SelectSingleNode("//a").Attributes["href"].Value));
-                    _Document.LoadHtml(await GetRespons());
+                    _Document.LoadHtml(await GetResponsAsync());
                     _Anime.AnimeRaiting = _Document.DocumentNode.SelectSingleNode("//span[@class='rt-opis']").InnerText;
                 }
                 if (_Anime.AnimeOrigName == "") _Anime.AnimeOrigName = _Document.DocumentNode.SelectSingleNode("//em").InnerText;
@@ -100,18 +98,18 @@ namespace AniSpace.Models.FactoryDomins
             }
             Default();
         }
-        internal async Task GetList()
+        internal async Task GetListAsync()
         {
-            _Document.LoadHtml(await GetRespons());
+            _Document.LoadHtml(await GetResponsAsync());
             var tooltips = _Document.DocumentNode?.SelectNodes("//section[@class='post-list']")?.ToList();
             if (tooltips != null)
             {
                 foreach (HtmlNode node in tooltips)
                 {
                     _Request = new AnimeRequest(new Uri(_Uri));
-                    _Document.LoadHtml(await GetRespons());
+                    _Document.LoadHtml(await GetResponsAsync());
                     _Document.LoadHtml(node.InnerHtml);
-                    await HowToSearch();
+                    await HowToSearchAsync();
                     AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _AnimeList.Clear();
                     _Content.Clear();
@@ -121,9 +119,9 @@ namespace AniSpace.Models.FactoryDomins
             Default();
             AnimeControler._AnimeListBoxItems[0].Opacity = 1;
         }
-        internal async Task Search()
+        internal async Task SearchAsync()
         {
-            _Document.LoadHtml(await GetRespons());
+            _Document.LoadHtml(await GetResponsAsync());
             if (_Anime.AnimeAge is null || _Anime.AnimeAge == "") _Age = ""; else if (_Anime.AnimeAge != "") _Age = _Anime.AnimeAge.Remove(4);
             var tooltips = _Document.DocumentNode?.SelectNodes("//section[@class='post-list']")?.Where(x => x.InnerText.Contains(_Age))?.ToList();
             if (tooltips != null)
@@ -131,9 +129,9 @@ namespace AniSpace.Models.FactoryDomins
                 foreach (HtmlNode node in tooltips)
                 {
                     _Request = new AnimeRequest(new Uri($"https://animang.ru/?s={_Anime.AnimeName.ConvertToSearchName(':')}"));
-                    _Document.LoadHtml(await GetRespons());
+                    _Document.LoadHtml(await GetResponsAsync());
                     _Document.LoadHtml(node.InnerHtml);
-                    await HowToSearch();
+                    await HowToSearchAsync();
                     AnimeControler.Create(AnimeName, _Anime.AnimeOrigName, _Anime.AnimeRaiting, AnimeImage, _Anime.AnimeAge, _Anime.AnimeTegs);
                     _AnimeList.Clear();
                     _Content.Clear();

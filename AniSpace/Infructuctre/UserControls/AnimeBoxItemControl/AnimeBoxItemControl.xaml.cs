@@ -128,7 +128,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private async Task OnChangeOnAniMangCommand()
         {
             RaitingCompare();
-            await AnimeControler.Get("AniMang", this);
+            await AnimeControler.GetAsync("AniMang", this);
             RaitingCompare();
         }
 
@@ -137,7 +137,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         private async Task OnChangeOnShikimoriCommand()
         {
             RaitingCompare();
-            await AnimeControler.Get("Shikimori", this);
+            await AnimeControler.GetAsync("Shikimori", this);
             RaitingCompare();
         }
 

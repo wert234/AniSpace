@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AniSpace" mc:Ignorable="d"
         xmlns:vm="clr-namespace:AniSpace.ViewModels" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        Title="AniSpace" Height="500" MinHeight="500" MinWidth="800" Width="800" Name="Window">
+        Title="AniSpace" Height="500" MinHeight="500" MinWidth="800" Width="800" Name="Window" Icon="/Resources/Img/AniSpaceIcon.ico">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -174,21 +174,11 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            
+
             <TabItem MaxWidth="Infinity" Header="История">
                 <TabItem.Content>
                     <!--Таблица-->
                     <ListBox ItemsSource="{Binding SavedAnimeBoxItems}"/>
-                </TabItem.Content>
-            </TabItem>
-
-            <TabItem MaxWidth="Infinity" Header="Настройки">
-                <TabItem.Content>
-                    <!--Настройки-->
-                    <Grid>
-                        <TextBlock Text="{Binding Ganers}"/>
-
-                    </Grid>
                 </TabItem.Content>
             </TabItem>
         </TabControl>

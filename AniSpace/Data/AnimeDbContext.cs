@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AniSpace.Data
 {
-    internal class AnimeDbContext : DbContext
+    public class AnimeDbContext : DbContext
     {
         public AnimeDbContext()
             :base(){}

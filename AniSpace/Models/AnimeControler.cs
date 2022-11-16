@@ -3,13 +3,14 @@ using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models.Factory;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace AniSpace.Models
 {
-    internal static class AnimeControler
+    public static class AnimeControler
     {
         private static AnimeFactory GetFactory(string animeTipe) =>
         animeTipe switch
@@ -19,29 +20,29 @@ namespace AniSpace.Models
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
-        public static string Limit { get; set; } = "10";
-        internal static void Create(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> SavedBoxItems = null)
+        public const string Limit = "10";
+        public static void Create(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> SavedBoxItems = null)
         {
-            AnimeBoxItemControl item = new AnimeBoxItemControl();
-
-            if(SavedBoxItems is null)
-                _AnimeListBoxItems.Add(item);
-            else SavedBoxItems.Add(item);
-         
-            item.AnimeName = $"{Name}";
-            item.AnimeOrigName = NameOrig;
-            item.AnimeRaiting = $"{Raiting}";
-            item.AnimeAge = $"{seson}";
-            item.AnimeTegs = tegs;
-            item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
+               AnimeBoxItemControl item = new AnimeBoxItemControl();
+              
+               if(SavedBoxItems is null)
+                   _AnimeListBoxItems.Add(item);
+               else SavedBoxItems.Add(item);
+              
+               item.AnimeName = $"{Name}";
+               item.AnimeOrigName = NameOrig;
+               item.AnimeRaiting = $"{Raiting}";
+               item.AnimeAge = $"{seson}";
+               item.AnimeTegs = tegs;
+               item.AnimeImage = (ImageSource)new ImageSourceConverter().ConvertFrom(image);
         }
-        internal static void CreateMore(ICommand MoreApplicationCommand)
+        public static void CreateMore(ICommand MoreApplicationCommand)
         {
             AnimeMoreButtonControl control = new AnimeMoreButtonControl();
             control.Command = MoreApplicationCommand;
             _AnimeListBoxItems.Add(control);
         }
-        internal static async Task Get(string StudioName, AnimeBoxItemControl anime)
+        public static async Task GetAsync(string StudioName, AnimeBoxItemControl anime)
         {
             animeFactory = GetFactory(StudioName);
             await animeFactory.GetAnime(anime);

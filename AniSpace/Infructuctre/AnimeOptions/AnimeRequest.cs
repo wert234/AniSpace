@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AniSpace.Models
 {
-    internal class AnimeRequest : HttpRequestMessage
+    public class AnimeRequest : HttpRequestMessage
     {
-        internal AnimeRequest(Uri AnimeUri, Dictionary<string, string> content = null)
+        public AnimeRequest(Uri AnimeUri, Dictionary<string, string> content = null)
         {
             Method = HttpMethod.Get;
             RequestUri = AnimeUri;

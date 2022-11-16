@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AniSpace.Models
 {
-    internal class AnimeBase
+    public class AnimeBase
     {
         public int Id { get; set; }
         public string AnimeName { get; set; }

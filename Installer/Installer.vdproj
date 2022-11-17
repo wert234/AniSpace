@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_6CBB4F9D6F014941BBA289D6D15E9C6A"
+        "MsmKey" = "8:_671A0CE07FAB4B32BFD488C4CB9F18AD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -43,6 +43,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -59,6 +75,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -76,6 +108,16 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_6466B1E2FE934CE6A9841992FF4BC69B"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
             }
         }
         "File"
@@ -157,7 +199,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Installer"
         "ProductCode" = "8:{64D04569-3761-4DC4-B8FA-D2CF21FF7898}"
-        "PackageCode" = "8:{50D3B5DB-F525-4785-BC28-C8B4838267E3}"
+        "PackageCode" = "8:{B9A8EF47-B0A0-4271-BD7F-C92B8D4B27DA}"
         "UpgradeCode" = "8:{EA75CEE4-83C2-4342-89FE-78EF19B913D8}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -277,32 +319,32 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_08AAFDCA93014D09BCAF131FCFDC7165"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3D675F7D682F46F997A348A6336AF2BE"
             {
-            "Name" = "8:AniSpaceInstaller"
+            "Name" = "8:AniSpace"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6CBB4F9D6F014941BBA289D6D15E9C6A"
+            "Target" = "8:_671A0CE07FAB4B32BFD488C4CB9F18AD"
             "Folder" = "8:_AA7624A01127470CB9CAD1078E4138AE"
             "WorkingFolder" = "8:_6C2E3E2214AE4400AEF101FF5CC60BD5"
             "Icon" = "8:_B0C2DA65AD02492D87BE46E647205F37"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_234BAC7B1D9343CAB20EF744E9C8C277"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6933105C1C6E46439F391B4105475789"
             {
-            "Name" = "8:AniSpaceInstaller"
+            "Name" = "8:AniSpace"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6CBB4F9D6F014941BBA289D6D15E9C6A"
+            "Target" = "8:_671A0CE07FAB4B32BFD488C4CB9F18AD"
             "Folder" = "8:_1D6223B8C072486DB51CE7F79C68667C"
             "WorkingFolder" = "8:_6C2E3E2214AE4400AEF101FF5CC60BD5"
-            "Icon" = "8:_B0C2DA65AD02492D87BE46E647205F37"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
@@ -704,9 +746,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6CBB4F9D6F014941BBA289D6D15E9C6A"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_671A0CE07FAB4B32BFD488C4CB9F18AD"
             {
-            "SourcePath" = "8:..\\AniMangTests\\obj\\Debug\\net6.0-windows\\AniMangTests.dll"
+            "SourcePath" = "8:..\\AniSpace\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6C2E3E2214AE4400AEF101FF5CC60BD5"
@@ -725,8 +767,8 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{573AA317-430D-4848-98D5-4CB3D33DA8C9}"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{493DC676-749F-4A49-B90F-FF631A4A266D}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

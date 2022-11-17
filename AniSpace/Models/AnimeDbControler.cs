@@ -50,7 +50,7 @@ namespace AniSpace.Models
                 _Animes.Add(item);
             }
         }
-        public static AnimeBase ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage, string AnimeOrigName, string Age, string Tegs)
+        private static AnimeBase ConvertListBoxItemToDbItem(string AnimeRaiting, string AnimeName, string AnimeImage, string AnimeOrigName, string Age, string Tegs)
         {
             AnimeBase animeDbItem = new AnimeBase();
             animeDbItem.AnimeImage = AnimeImage.ToString();

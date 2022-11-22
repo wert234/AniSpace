@@ -15,12 +15,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 {
     public partial class AnimeBoxItemControl : UserControl
     {
         public bool isAdded { get; set; } = false;
+
+        #region StudioNames
+        public ObservableCollection<MenuItem> StudioNames
+        {
+            get { return (ObservableCollection<MenuItem>)GetValue(StudioNameProperty); }
+            set { SetValue(StudioNameProperty, value); }
+        }
+        public static readonly DependencyProperty StudioNameProperty =
+            DependencyProperty.Register("StudioNames", typeof(ObservableCollection<MenuItem>), typeof(AnimeBoxItemControl));
+        #endregion
 
         #region AnimeAge
         public string AnimeAge
@@ -122,33 +133,14 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         }
 
         #endregion
-
         #region ChangeStudioApplicationCommands
 
-        public ICommand ChangeOnAniMangCommand { get; set; }
-        private bool CanChangeOnAniMangCommand(object p) => true;
-        private async Task OnChangeOnAniMangCommand()
+        public ICommand ChangeStudioCommand { get; set; }
+        private bool CanChangeStudioCommand(object p) => true;
+        private async void OnChangeStudioCommand(object p)
         {
             RaitingCompare();
-            await AnimeControler.GetAsync("AniMang", this);
-            RaitingCompare();
-        }
-
-        public ICommand ChangeOnShikimoriCommand { get; set; }
-        private bool CanChangeOnShikimoriCommand(object p) => true;
-        private async Task OnChangeOnShikimoriCommand()
-        {
-            RaitingCompare();
-            await AnimeControler.GetAsync("Shikimori", this);
-            RaitingCompare();
-        }
-
-        public ICommand ChangeOnAnimeGoCommand { get; set; }
-        private bool CanChangeOnAnimeGoCommand(object p) => true;
-        private async Task OnChangeOnAnimeGoCommand()
-        {
-            RaitingCompare();
-            await AnimeControler.GetAsync("AnimeGo", this);
+            await AnimeControler.GetAsync(p.ToString(), this);
             RaitingCompare();
         }
 
@@ -157,18 +149,19 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         #endregion
         public AnimeBoxItemControl()
         {
+           
             #region CommandInit
 
             AddApplicationCommand = new RelayCommand(OnAddApplicationCommandExecuted, CanAddApplicationCommandExecuted);
-            RemoveApplicationCommand = new RelayCommand(OnRemoveApplicationCommand, CanRemoveApplicationCommand);
-
-            #region ChangeStudioApplicationCommands     
-            ChangeOnShikimoriCommand = new RelayCommand(OnChangeOnShikimoriCommand, CanChangeOnShikimoriCommand);
-            ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);
-            ChangeOnAnimeGoCommand = new RelayCommand(OnChangeOnAnimeGoCommand, CanChangeOnAnimeGoCommand);
-            #endregion
+            RemoveApplicationCommand = new RelayCommand(OnRemoveApplicationCommand, CanRemoveApplicationCommand);  
+            ChangeStudioCommand = new RelayCommand(OnChangeStudioCommand, CanChangeStudioCommand);
 
             #endregion
+
+            StudioNames = new ObservableCollection<MenuItem>();
+            foreach (var item in AnimeControler.StudioNemse)
+                StudioNames.Add(new MenuItem() { Header = item.Key, CommandParameter = item.Key, Command = ChangeStudioCommand } );
+      
             RaitingCompare();
             InitializeComponent();
         }

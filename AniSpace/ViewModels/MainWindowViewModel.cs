@@ -18,6 +18,8 @@ namespace AniSpace.ViewModels
         #region Propertys
         #region MenuTitelPropertys
 
+        public ObservableCollection<ComboBoxItem> AnimeGaners { get; set; }
+
         private ComboBoxItem? _SelectedItem;
         public ComboBoxItem? SelectedItem
         {
@@ -242,6 +244,11 @@ namespace AniSpace.ViewModels
         public MainWindowViewModel()
         {
             #region Propertys
+
+            AnimeGaners = new ObservableCollection<ComboBoxItem>();
+            foreach (var item in AnimeControler.StudioNemse)
+                AnimeGaners.Add(new ComboBoxItem() { Content = item.Key });
+
             AnimeListBoxItems = new ObservableCollection<UserControl>();
             AnimeControler._AnimeListBoxItems = AnimeListBoxItems;
             AnimeDb = new AnimeDbContext();

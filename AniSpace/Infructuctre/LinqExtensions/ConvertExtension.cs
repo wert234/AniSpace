@@ -28,14 +28,10 @@ namespace AniSpace.Infructuctre.LinqExtensions
         {
             if (Input is null)
             {
-                ComboBoxItem item = new ComboBoxItem();
-                item.Content = new TextBlock
-                {
-                    Text = Default
-                };
-                Input = item;
+                Input = new ComboBoxItem();
+                Input.Content = Default;
             }
-            return ((TextBlock)Input.Content).Text;
+            return Input.Content.ToString();
         }
 
         public static string GanerToString(this AnimeGaner Input, string Default)

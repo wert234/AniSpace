@@ -1,6 +1,8 @@
 ﻿using AniSpace.Infructuctre.UserControls.AnimeBoxItemControl;
 using AniSpace.Infructuctre.UserControls.AnimeMoreButtonControl;
 using AniSpace.Models.Factory;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,13 +14,18 @@ namespace AniSpace.Models
 {
     public static class AnimeControler
     {
-        private static AnimeFactory GetFactory(string animeTipe) =>
-        animeTipe switch
+        internal static Dictionary<string, AnimeFactory> StudioNemse = new Dictionary<string, AnimeFactory>
         {
-            "AniMang" => new AniMangFactory(),
-            "Shikimori" => new ShikimoriFactory(),
-            "AnimeGo" => new AnimeGoFactor(),
+            { "AniMang", new AniMangFactory() },
+            { "Shikimori", new ShikimoriFactory() },
+            { "AnimeGo", new AnimeGoFactor() },
         };
+        private static AnimeFactory GetFactory(string animeTipe)
+        {
+            foreach (var item in StudioNemse)
+                if (animeTipe == item.Key) return item.Value;
+            return StudioNemse["Shikimori"];
+        }
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
 

@@ -64,10 +64,7 @@
                         <MenuItem VerticalAlignment="Center" HorizontalAlignment="Center" Header="...">
                             <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= AddApplicationCommand}" FontSize="15" Header="Добавить"></MenuItem>
                             <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path= RemoveApplicationCommand}" FontSize="15" Header="Удалить"></MenuItem>
-                            <MenuItem FontSize="15" Header="По версии">
-                                <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAniMangCommand}" FontSize="15" Header="AniMang"></MenuItem>
-                                <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnShikimoriCommand}" FontSize="15" Header="Shikimori"></MenuItem>
-                                <MenuItem Command="{Binding ElementName=AnimeBoxItem, Path=ChangeOnAnimeGoCommand}" FontSize="15" Header="AnimeGo"></MenuItem>
+                            <MenuItem FontSize="15" Header="По версии" ItemsSource="{Binding ElementName=AnimeBoxItem, Path=StudioNames}">
                             </MenuItem>
                         </MenuItem>
                     </Menu>

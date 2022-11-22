@@ -54,51 +54,21 @@
                                                 <Grid VerticalAlignment="Top" Margin="0,10,0,0">
                                                     <TextBlock VerticalAlignment="Center" Text="Годы"/>
                                                     <ComboBox SelectedItem="{Binding Years}" Margin="35,0,0,0">
-                                                        <ComboBoxItem>
-                                                            <TextBlock></TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2022</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2021</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2020</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2019</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2018</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2017</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2016</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2015</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2014</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2013</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2012</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2011</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2010</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>2009</TextBlock>
-                                                        </ComboBoxItem>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock>2022</TextBlock>
+                                                        <TextBlock>2021</TextBlock>
+                                                        <TextBlock>2020</TextBlock>
+                                                        <TextBlock>2019</TextBlock>
+                                                        <TextBlock>2018</TextBlock>
+                                                        <TextBlock>2017</TextBlock>
+                                                        <TextBlock>2016</TextBlock>
+                                                        <TextBlock>2015</TextBlock>
+                                                        <TextBlock>2014</TextBlock>
+                                                        <TextBlock>2013</TextBlock>
+                                                        <TextBlock>2012</TextBlock>
+                                                        <TextBlock>2011</TextBlock>
+                                                        <TextBlock>2010</TextBlock>
+                                                        <TextBlock>2009</TextBlock>
                                                     </ComboBox>
                                                 </Grid>
                                                 <StackPanel Grid.Column="1" Orientation="Vertical">
@@ -117,43 +87,20 @@
                                          Возраст
                                             </TextBlock>
                                             <ComboBox SelectedItem="{Binding Age}" Margin="50,0,0,0">
-                                                <ComboBoxItem>
-                                                    <TextBlock></TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>g</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>pg</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>pg_13</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>r</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>r_plus</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>rx</TextBlock>
-                                                </ComboBoxItem>
+                                                <TextBlock></TextBlock>
+                                                <TextBlock>g</TextBlock>
+                                                <TextBlock>pg</TextBlock>
+                                                <TextBlock>pg_13</TextBlock>
+                                                <TextBlock>r</TextBlock>
+                                                <TextBlock>r_plus</TextBlock>
+                                                <TextBlock>rx</TextBlock>
                                             </ComboBox>
                                         </Grid>
                                         <Grid Margin="0,0,0,15">
                                             <TextBlock>
                                          По версии
                                             </TextBlock>
-                                            <ComboBox SelectedIndex="1" SelectedItem="{Binding Version}" Margin="60,0,0,0">
-                                                <ComboBoxItem>
-                                                    <TextBlock>AniMang</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>Shikimori</TextBlock>
-                                                </ComboBoxItem>
-                                                <ComboBoxItem>
-                                                    <TextBlock>AnimeGo</TextBlock>
-                                                </ComboBoxItem>
+                                            <ComboBox SelectedIndex="1" ItemsSource="{Binding AnimeGaners }" SelectedItem="{Binding Version}" Margin="60,0,0,0">
                                             </ComboBox>
                                         </Grid>
                                         <Button Command="{Binding SearchApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">

@@ -66,13 +66,44 @@ namespace AniSpace.Infructuctre.LinqExtensions
                 {"Экшен", "1-Action" },
                 {"Этти", "9-Ecchi" },
             };
-            if(Input is null) return Dafalt;
+            if (Input is null) return Dafalt;
             foreach (var item in Input.Split(", "))
             {
-                ShikimoriGaners = ShikimoriGaners  + "," + ganers[item];
+                ShikimoriGaners = ShikimoriGaners + "," + ganers[item];
             }
-              
-            return ShikimoriGaners.Remove(0,1);
+
+            return ShikimoriGaners.Remove(0, 1);
+        }
+
+        public static string GanerToAnimeGoGaner(this string Input, string Dafalt)
+        {
+            string ShikimoriGaners = "";
+            Dictionary<string, string> ganers = new Dictionary<string, string>
+            {
+                {"Комедия", "comedy" },
+                {"Романтика", "romance" },
+                {"Школа", "school" },
+                {"Боевые искусства", "martial-arts" },
+                {"Детектив", "mystery" },
+                {"Драма", "drama" },
+                {"Меха", "mecha" },
+                {"Музыка", "music" },
+                {"Повседневность", "slice-of-Life" },
+                {"Приключения", "adventure" },
+                {"Спорт", "sports" },
+                {"Ужасы", "horror" },
+                {"Фантастика", "sci-Fi" },
+                {"Фэнтези", "fantasy" },
+                {"Экшен", "action" },
+                {"Этти", "ecchi" },
+            };
+            if (Input is null) return Dafalt;
+            foreach (var item in Input.Split(", "))
+            {
+                ShikimoriGaners = ShikimoriGaners + "-or-" + ganers[item];
+            }
+
+            return ShikimoriGaners.Remove(0, 1);
         }
     }
 }

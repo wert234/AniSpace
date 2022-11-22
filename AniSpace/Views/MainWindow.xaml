@@ -151,6 +151,9 @@
                                                 <ComboBoxItem>
                                                     <TextBlock>Shikimori</TextBlock>
                                                 </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    <TextBlock>AnimeGo</TextBlock>
+                                                </ComboBoxItem>
                                             </ComboBox>
                                         </Grid>
                                         <Button Command="{Binding SearchApplicationCommand}" Margin="0,10,0,0" Cursor="Hand">

@@ -17,17 +17,23 @@ namespace AniSpace.Models
         {
             "AniMang" => new AniMangFactory(),
             "Shikimori" => new ShikimoriFactory(),
+            "AnimeGo" => new AnimeGoFactor(),
         };
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
-        public const string Limit = "10";
+
+        internal const string Limit = "10";
         public static void Create(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> SavedBoxItems = null)
         {
                AnimeBoxItemControl item = new AnimeBoxItemControl();
-              
-               if(SavedBoxItems is null)
-                   _AnimeListBoxItems.Add(item);
-               else SavedBoxItems.Add(item);
+
+            if (SavedBoxItems is null)
+                _AnimeListBoxItems.Add(item);
+            else
+            {
+                item.isAdded = true;
+                SavedBoxItems.Add(item);
+            }
               
                item.AnimeName = $"{Name}";
                item.AnimeOrigName = NameOrig;

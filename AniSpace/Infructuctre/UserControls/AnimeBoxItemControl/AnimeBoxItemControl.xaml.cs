@@ -20,6 +20,8 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
 {
     public partial class AnimeBoxItemControl : UserControl
     {
+        public bool isAdded { get; set; } = false;
+
         #region AnimeAge
         public string AnimeAge
         {
@@ -83,8 +85,8 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         {
             if (OldRaiting is null || OldRaiting is "") OldRaiting = AnimeRaiting;
             if (AnimeRaiting is null || AnimeRaiting is "") { RaitingColor = Brushes.Black; return; }
-            if (float.Parse(OldRaiting.Replace('.',',')) < float.Parse(AnimeRaiting.Replace('.', ',')))
-               RaitingColor = Brushes.Green;
+            if (float.Parse(OldRaiting.Replace('.', ',')) < float.Parse(AnimeRaiting.Replace('.', ',')))
+                RaitingColor = Brushes.Green;
             if (float.Parse(OldRaiting.Replace('.', ',')) > float.Parse(AnimeRaiting.Replace('.', ',')))
                 RaitingColor = Brushes.Red;
             OldRaiting = AnimeRaiting;
@@ -104,7 +106,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         #region Commands
         #region AddAplicationCommand
         public ICommand AddApplicationCommand { get; set; }
-        private bool CanAddApplicationCommandExecuted(object p) => true;
+        private bool CanAddApplicationCommandExecuted(object p) => !isAdded;
         private async Task OnAddApplicationCommandExecuted()
         {
             await AnimeDbControler.SaveAsync(AnimeRaiting, AnimeName, AnimeOrigName, AnimeImage.ToString(), AnimeAge, AnimeTegs);
@@ -113,7 +115,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
         #endregion
         #region RemuveApplicationCommand
         public ICommand RemoveApplicationCommand { get; set; }
-        private bool CanRemoveApplicationCommand(object p) => true;
+        private bool CanRemoveApplicationCommand(object p) => isAdded;
         private async Task OnRemoveApplicationCommand()
         {
             await AnimeDbControler.DelteByNameAsync(AnimeName);
@@ -141,6 +143,15 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             RaitingCompare();
         }
 
+        public ICommand ChangeOnAnimeGoCommand { get; set; }
+        private bool CanChangeOnAnimeGoCommand(object p) => true;
+        private async Task OnChangeOnAnimeGoCommand()
+        {
+            RaitingCompare();
+            await AnimeControler.GetAsync("AnimeGo", this);
+            RaitingCompare();
+        }
+
         #endregion
 
         #endregion
@@ -154,6 +165,7 @@ namespace AniSpace.Infructuctre.UserControls.AnimeBoxItemControl
             #region ChangeStudioApplicationCommands     
             ChangeOnShikimoriCommand = new RelayCommand(OnChangeOnShikimoriCommand, CanChangeOnShikimoriCommand);
             ChangeOnAniMangCommand = new RelayCommand(OnChangeOnAniMangCommand, CanChangeOnAniMangCommand);
+            ChangeOnAnimeGoCommand = new RelayCommand(OnChangeOnAnimeGoCommand, CanChangeOnAnimeGoCommand);
             #endregion
 
             #endregion

@@ -96,10 +96,15 @@ namespace AniSpace.Infructuctre.LinqExtensions
             if (Input is null) return Dafalt;
             foreach (var item in Input.Split(", "))
             {
+                if(ShikimoriGaners != "")
                 ShikimoriGaners = ShikimoriGaners + "-or-" + ganers[item];
+                else
+                {
+                    ShikimoriGaners = ganers[item];
+                }
             }
 
-            return ShikimoriGaners.Remove(0, 1);
+            return ShikimoriGaners;
         }
     }
 }

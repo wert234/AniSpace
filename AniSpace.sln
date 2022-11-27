@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShikimoriTests", "Shikimori
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateBaseTests", "DateBaseTests\DateBaseTests.csproj", "{505F7341-E9C5-49C4-BF61-EFADFF630C73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimeGoTests", "AnimeGoTests\AnimeGoTests.csproj", "{F8BE34C5-2A71-4857-91F1-E0D53380DD32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{505F7341-E9C5-49C4-BF61-EFADFF630C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{505F7341-E9C5-49C4-BF61-EFADFF630C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{505F7341-E9C5-49C4-BF61-EFADFF630C73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BE34C5-2A71-4857-91F1-E0D53380DD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BE34C5-2A71-4857-91F1-E0D53380DD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BE34C5-2A71-4857-91F1-E0D53380DD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BE34C5-2A71-4857-91F1-E0D53380DD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{573AA317-430D-4848-98D5-4CB3D33DA8C9} = {93B162F4-EC0E-4F6E-8E4E-94EE66BB4B9B}
 		{E1670D5A-77F9-4BB4-8505-1FCA00F4BFC4} = {93B162F4-EC0E-4F6E-8E4E-94EE66BB4B9B}
 		{505F7341-E9C5-49C4-BF61-EFADFF630C73} = {93B162F4-EC0E-4F6E-8E4E-94EE66BB4B9B}
+		{F8BE34C5-2A71-4857-91F1-E0D53380DD32} = {93B162F4-EC0E-4F6E-8E4E-94EE66BB4B9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B315F4D3-B7CB-4DD3-9A1F-97A13FC58226}

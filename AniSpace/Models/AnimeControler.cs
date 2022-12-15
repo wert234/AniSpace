@@ -28,7 +28,6 @@ namespace AniSpace.Models
         }
         private static AnimeFactory animeFactory;
         public static ObservableCollection<UserControl> _AnimeListBoxItems { get; set; }
-
         internal const string Limit = "10";
         public static void Create(string Name, string NameOrig, string Raiting, string image, string seson, string tegs, ObservableCollection<UserControl> SavedBoxItems = null)
         {

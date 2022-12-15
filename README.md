@@ -1,7 +1,7 @@
 # AniSpace
 __AniSpace__ - это удобный способ сравнить рейтин и жанры аниме с разных сайтов.
 
-![logo]() 
+![logo](https://github.com/wert234/AniSpace/blob/master/Demo1.png) 
 
 ## Описание
 
@@ -29,8 +29,18 @@ __AniSpace__ - это удобный способ сравнить рейтин 
 
 Чтобы удалить ПО надо открыть деинстолятр в папки куда вы установили ПО.
 
+
+## Скрины
+
+__Новости__
+
+![](https://github.com/wert234/AniSpace/blob/master/Demo2.png)
+
+
+
 _____
 
 ![](https://img.shields.io/badge/AmiSpace%20Version-1.0-green)
 ![](https://img.shields.io/badge/.NET-6.0-brightgreen)
 ![](https://img.shields.io/badge/Entity%20Framework-6.0.8-blue)
+

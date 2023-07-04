@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Infructuctre\Demo\Demo1.png" />
+    <None Remove="Infructuctre\Demo\Demo2.png" />
     <None Remove="Resources\Img\AniSpaceIcon.ico" />
   </ItemGroup>
 
@@ -29,9 +31,12 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Telegram.Bot" Version="19.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Infructuctre\Demo\Demo1.png" />
+    <Resource Include="Infructuctre\Demo\Demo2.png" />
     <Resource Include="Resources\Img\AniSpaceIcon.ico" />
     <Resource Include="Resources\Img\ErrorImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

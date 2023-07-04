@@ -1,4 +1,4 @@
-﻿<Window x:Class="AniSpace.MainWindow"
+﻿ <Window x:Class="AniSpace.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -87,13 +87,13 @@
                                          Возраст
                                             </TextBlock>
                                             <ComboBox SelectedItem="{Binding Age}" Margin="50,0,0,0">
-                                                <TextBlock></TextBlock>
-                                                <TextBlock>g</TextBlock>
-                                                <TextBlock>pg</TextBlock>
-                                                <TextBlock>pg_13</TextBlock>
-                                                <TextBlock>r</TextBlock>
-                                                <TextBlock>r_plus</TextBlock>
-                                                <TextBlock>rx</TextBlock>
+                                                <ComboBoxItem></ComboBoxItem>
+                                                <ComboBoxItem>g</ComboBoxItem>
+                                                <ComboBoxItem>pg</ComboBoxItem>
+                                                <ComboBoxItem>pg_13</ComboBoxItem>
+                                                <ComboBoxItem>r</ComboBoxItem>
+                                                <ComboBoxItem>r_plus</ComboBoxItem>
+                                                <ComboBoxItem>rx</ComboBoxItem>
                                             </ComboBox>
                                         </Grid>
                                         <Grid Margin="0,0,0,15">

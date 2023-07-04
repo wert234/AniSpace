@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AniSpace.Migrations
 {
     [DbContext(typeof(AnimeDbContext))]
-    [Migration("20221009141122_Init")]
-    partial class Init
+    [Migration("20230209164250_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -228,7 +228,6 @@ namespace AniSpace.ViewModels
             isLoading = false;
         }
         #endregion
-
         #region MoreNewsApplicationCommand
         public int NewsCounter { get; set; } = 10;
         public ICommand MoreNewsApplicationCommand { get; set; }
